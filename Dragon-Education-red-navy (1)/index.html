@@ -1,0 +1,1441 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Dragon Education</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@500;700&family=Noto+Serif+SC:wght@600;900&display=swap">
+<style>
+/* Layout: red and navy Dragon Education site — sticky header, routed pages, catalog grids with filter rail, CRM as a dense work surface */
+:root{
+  --ink:#08182e; --ink-2:#102540; --ink-3:#16304f; --ink-4:#1c3b60;
+  --teal:#102d50; --teal-2:#194a78;
+  --red:#cf2439; --red-2:#f35162; --blush:#f2c4c0;
+  --gold:#f57b81; --gold-2:#ffd4d6;
+  --cream:#f6f7fb; --soft:#d7e0ed; --muted:#a4b6cc; --line:rgba(220,230,247,.12); --line-2:rgba(220,230,247,.22);
+  --ok:#4fbf8a; --warn:#e3b341; --info:#5aa7e0; --violet:#a98be8; --bad:#e0646a;
+  --f-display:"Cormorant Garamond","Times New Roman",Georgia,serif;
+  --f-body:"Manrope",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --f-hand:"Caveat","Comic Sans MS",cursive;
+  --f-han:"Noto Serif SC","Songti SC","SimSun",serif;
+  --wrap:1200px; --r:18px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ink);color:var(--cream);font:16px/1.6 var(--f-body);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img{max-width:100%;display:block}
+h1,h2,h3,h4{font-family:var(--f-display);font-weight:700;line-height:1.08;margin:0;text-wrap:balance;letter-spacing:-.01em}
+p{margin:0}
+button{font:inherit;color:inherit}
+.wrap{max-width:var(--wrap);margin:0 auto;padding-inline:24px}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font:700 12px/1 var(--f-body);letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.eyebrow::before{content:"";width:28px;height:1px;background:var(--gold)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 26px;border-radius:999px;font:700 15px/1 var(--f-body);text-decoration:none;border:1px solid transparent;transition:transform .2s,background .2s,border-color .2s,color .2s;cursor:pointer;background:none;white-space:nowrap}
+.btn:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--gold-2);outline-offset:3px}
+.btn-red{background:var(--red);color:#fff;box-shadow:0 10px 30px -12px rgba(196,38,46,.7)}
+.btn-red:hover{background:var(--red-2);transform:translateY(-1px)}
+.btn-ghost{border-color:rgba(238,76,88,.55);color:var(--gold-2)}
+.btn-ghost:hover{background:rgba(238,76,88,.1);border-color:var(--gold)}
+.btn-sm{padding:10px 16px;font-size:13px}
+.btn svg{width:18px;height:18px}
+.btn[disabled]{opacity:.5;cursor:not-allowed;transform:none}
+
+/* Header */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(8,24,46,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;gap:22px;height:76px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;flex-shrink:0;min-width:0}
+.brand img{width:50px;height:50px;border-radius:50%;box-shadow:0 0 0 2px rgba(238,76,88,.5)}
+.brand b{display:block;font:700 19px/1 var(--f-display);letter-spacing:.08em;color:var(--cream)}
+.brand small{display:block;font:600 10px/1.4 var(--f-body);letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-top:4px}
+.menu{display:flex;gap:4px;margin-left:auto}
+.menu a{text-decoration:none;font-weight:600;font-size:14px;color:var(--muted);padding:8px 11px;border-radius:999px;transition:color .2s,background .2s}
+.menu a:hover{color:var(--cream)}
+.menu a.on{color:var(--cream);background:var(--ink-3)}
+.menu a.crm-link{color:var(--gold-2)}
+.burger{display:none;margin-left:auto;width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--ink-2);cursor:pointer;place-items:center}
+.burger svg{width:22px;height:22px}
+.nav .btn{padding:12px 20px;font-size:14px}
+.mnav{display:none;border-top:1px solid var(--line);padding-block:12px 18px}
+.mnav a{display:block;padding:11px 4px;text-decoration:none;font-weight:600;color:var(--soft);border-bottom:1px solid var(--line)}
+.mnav.open{display:block}
+
+/* Page head */
+.phead{padding-block:56px 36px;background:radial-gradient(1200px 300px at 80% -40%,rgba(196,38,46,.18),transparent 70%),linear-gradient(180deg,var(--ink-2),var(--ink));border-bottom:1px solid var(--line)}
+.phead h1{font-size:clamp(38px,5vw,62px);margin-top:14px}
+.phead p{color:var(--muted);max-width:62ch;margin-top:14px}
+.crumbs{font-size:13px;color:var(--muted);display:flex;gap:8px;flex-wrap:wrap}
+.crumbs a{color:var(--gold-2);text-decoration:none}
+.demo-note{display:flex;gap:10px;align-items:flex-start;margin-top:20px;padding:12px 16px;border-radius:12px;background:rgba(227,179,65,.08);border:1px dashed rgba(227,179,65,.4);color:#e9d39a;font-size:13px;max-width:760px}
+
+/* Hero */
+.hero{position:relative;overflow:hidden;background:var(--ink)}
+.hero-bg{position:absolute;inset:0;background-position:72% 30%;background-size:cover;background-repeat:no-repeat}
+.hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--ink) 0%,rgba(8,24,46,.94) 32%,rgba(8,24,46,.55) 52%,rgba(8,24,46,0) 70%),linear-gradient(0deg,var(--ink) 0%,rgba(8,24,46,0) 28%)}
+.hero-in{position:relative;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);min-height:620px;align-items:center;padding-block:56px 76px}
+.hero-copy{display:flex;flex-direction:column;gap:24px;max-width:620px}
+.pill{align-self:flex-start;padding:9px 16px;border-radius:999px;background:rgba(196,38,46,.16);border:1px solid rgba(196,38,46,.45);color:var(--blush);font:800 11.5px/1.2 var(--f-body);letter-spacing:.14em;text-transform:uppercase}
+.hero h1{font-size:clamp(40px,5.4vw,70px)}
+.hero h1 em{font-style:italic;font-weight:600;color:var(--gold-2)}
+.hero h1 .r{color:var(--red-2)}
+.lead{font-size:18px;color:var(--soft);max-width:52ch}
+.feats{display:flex;flex-wrap:wrap;gap:20px 28px}
+.feat{display:flex;align-items:center;gap:12px;font-size:14px;line-height:1.35;font-weight:600}
+.feat i{width:42px;height:42px;flex-shrink:0;border-radius:12px;display:grid;place-items:center;background:var(--ink-3);border:1px solid var(--line);color:var(--gold)}
+.feat svg{width:20px;height:20px}
+.ctas{display:flex;flex-wrap:wrap;gap:14px}
+.note{font-size:13px;color:var(--muted)}
+.hand{position:absolute;right:4%;top:48px;transform:rotate(-8deg);font:700 34px/1.05 var(--f-hand);color:#fff;text-shadow:0 2px 16px rgba(0,0,0,.45);text-align:right}
+.hand small{display:block;font:900 22px/1 var(--f-han);color:var(--gold-2);margin-top:8px;letter-spacing:.1em}
+.seal{position:absolute;right:6%;bottom:90px;width:84px;height:84px;border-radius:14px;background:var(--red);color:#fff;display:grid;place-items:center;font:900 44px/1 var(--f-han);transform:rotate(6deg);box-shadow:0 14px 34px -10px rgba(0,0,0,.7);border:3px double rgba(255,255,255,.55)}
+
+/* Sections */
+.sec{padding-block:88px}
+.sec.tight{padding-top:0}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:40px}
+.sec-head h2{font-size:clamp(32px,4.2vw,50px);margin-top:14px}
+.sec-head p{color:var(--muted);max-width:50ch}
+.more{display:inline-flex;gap:8px;align-items:center;color:var(--gold-2);font-weight:700;text-decoration:none;font-size:14px;transition:gap .2s}
+.more:hover{gap:12px}
+.band{background:var(--ink-2);border-block:1px solid var(--line)}
+.band-teal{background:linear-gradient(180deg,var(--ink) 0%,var(--teal) 100%);border-block:1px solid var(--line)}
+
+.about-strip{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:48px;align-items:center}
+.about-strip h2{font-size:clamp(30px,3.6vw,44px);margin-block:14px 18px}
+.about-strip p{color:var(--soft);max-width:58ch}
+.checks{display:grid;gap:12px;margin-top:22px;padding:0;list-style:none}
+.checks li{display:flex;gap:12px;align-items:flex-start;color:var(--soft)}
+.checks li::before{content:"";flex-shrink:0;width:8px;height:8px;margin-top:9px;transform:rotate(45deg);background:var(--gold)}
+.quote-card{position:relative;padding:34px;border-radius:22px;background:linear-gradient(150deg,#2c2040,var(--ink-2) 70%);border:1px solid rgba(196,38,46,.45)}
+.quote-card .big{font:900 92px/1 var(--f-han);color:rgba(240,207,134,.25);position:absolute;right:20px;top:14px}
+.quote-card h3{font-size:30px;margin-bottom:12px;position:relative}
+.quote-card p{color:var(--soft);position:relative}
+
+/* Directions */
+.dirs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.dir{position:relative;overflow:hidden;display:flex;flex-direction:column;gap:12px;padding:26px 22px 24px;min-height:280px;border-radius:var(--r);background:linear-gradient(160deg,var(--ink-3),var(--ink-2));border:1px solid var(--line);text-decoration:none;transition:transform .25s,border-color .25s}
+.dir:hover{transform:translateY(-4px);border-color:rgba(238,76,88,.5)}
+.dir .han{position:absolute;right:-8px;bottom:-26px;font:900 140px/1 var(--f-han);color:rgba(238,76,88,.09);pointer-events:none;transition:color .25s}
+.dir:hover .han{color:rgba(196,38,46,.2)}
+.tag{align-self:flex-start;font:800 11px/1 var(--f-body);letter-spacing:.12em;text-transform:uppercase;color:var(--blush);padding:7px 10px;border-radius:8px;background:rgba(196,38,46,.15)}
+.dir h3{font-size:27px;margin-top:4px}
+.dir p{color:var(--muted);font-size:14.5px}
+.dir .more{margin-top:auto;position:relative}
+
+/* Advantages */
+.advs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.adv{background:var(--ink);padding:28px 26px;display:flex;flex-direction:column;gap:10px}
+.adv b{font:900 34px/1 var(--f-han);color:var(--gold)}
+.adv h3{font-size:24px}
+.adv p{color:var(--muted);font-size:14.5px}
+
+/* Process */
+.process{display:grid;grid-template-columns:repeat(5,minmax(0,1fr))}
+.proc{padding-right:20px}
+.proc .num{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.proc .num b{flex-shrink:0;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font:700 22px/1 var(--f-display);background:var(--ink-3);border:1px solid var(--gold);color:var(--gold-2)}
+.proc .num::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--gold),transparent)}
+.proc:last-child .num::after{display:none}
+.proc h3{font-size:22px;margin-bottom:8px}
+.proc p{color:var(--muted);font-size:14.5px}
+
+/* Stories */
+.stories{display:flex;gap:28px;flex-wrap:wrap;justify-content:center}
+.story{display:flex;flex-direction:column;align-items:center;gap:12px;width:112px;background:none;border:0;padding:0;cursor:pointer;color:var(--cream)}
+.ring{width:100px;height:100px;border-radius:50%;padding:3px;background:conic-gradient(from 210deg,var(--red),var(--gold),var(--blush),var(--red));transition:transform .25s}
+.story:hover .ring{transform:scale(1.06)}
+.ring div{position:relative;width:100%;height:100%;border-radius:50%;border:3px solid var(--ink-2);background:radial-gradient(circle at 50% 35%,#fdeeea,var(--blush));display:grid;place-items:center;overflow:hidden}
+.ring img{position:absolute;inset:6%;width:88%;height:88%;border-radius:50%;object-fit:cover;filter:grayscale(1) contrast(1.1);mix-blend-mode:multiply;opacity:.14}
+.ring b{position:relative;font:900 34px/1 var(--f-han);color:#b6454b}
+.ring b.two{font-size:24px}
+.story span{font-weight:800;font-size:12px;letter-spacing:.06em;text-transform:uppercase;text-align:center;line-height:1.3}
+
+/* Story viewer */
+body.sv-lock{overflow:hidden}
+.sv{position:fixed;inset:0;z-index:300;background:rgba(5,7,9,.94);display:grid;place-items:center;padding:16px;padding-top:calc(16px + env(safe-area-inset-top,0px));padding-bottom:calc(16px + env(safe-area-inset-bottom,0px))}
+.sv-box{position:relative;width:min(420px,100%);height:min(780px,100%);aspect-ratio:9/16;max-width:100%;border-radius:18px;overflow:hidden;background:var(--ink-2);box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.sv-bars{position:absolute;top:10px;left:10px;right:10px;z-index:3;display:flex;gap:4px}
+.sv-bars i{flex:1;height:3px;border-radius:3px;background:rgba(255,255,255,.3);overflow:hidden}
+.sv-bars b{display:block;height:100%;background:#fff}
+.sv-head{position:absolute;top:22px;left:12px;right:12px;z-index:3;display:flex;align-items:center;gap:10px;color:#fff}
+.sv-head img{width:32px;height:32px;border-radius:50%}
+.sv-head b{font-size:14px}
+.sv-head small{font-size:12px;opacity:.7}
+.sv-x{margin-left:auto;width:36px;height:36px;border-radius:50%;border:0;background:rgba(0,0,0,.35);color:#fff;font-size:24px;line-height:1;cursor:pointer}
+.sv-media{position:absolute;inset:0}
+.sv-photo,.sv-yt{width:100%;height:100%;object-fit:cover;border:0;display:block}
+.sv-card{width:100%;height:100%;display:grid;place-items:center}
+.sv-g{font:900 min(44vw,190px)/1 var(--f-han);color:rgba(255,255,255,.9);text-shadow:0 10px 40px rgba(0,0,0,.4);margin-bottom:30%}
+.sv-nav{position:absolute;top:70px;bottom:120px;width:35%;z-index:2;background:none;border:0;cursor:pointer}
+.sv-prev{left:0}.sv-next{right:0}
+.sv-cap{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:60px 20px 22px;background:linear-gradient(0deg,rgba(0,0,0,.85),transparent);color:#fff;display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.sv-cap h3{font-size:28px}
+.sv-cap p{font-size:15px;color:#eee;line-height:1.5}
+
+
+/* Partners */
+.partners{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
+.partner{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;padding:18px 10px;border-radius:14px;border:1px solid var(--line);background:var(--ink-2);text-decoration:none;min-height:116px;transition:border-color .2s}
+.partner:hover{border-color:var(--gold)}
+.partner b{font:900 26px/1 var(--f-han);color:var(--gold-2)}
+.partner span{font-size:12.5px;color:var(--soft);line-height:1.3}
+
+/* Covers & cards */
+.cover{position:relative;aspect-ratio:16/9;max-width:100%;border-radius:14px;overflow:hidden;display:grid;place-items:center}
+.cover .g{font:900 clamp(64px,9vw,108px)/1 var(--f-han);color:rgba(255,255,255,.88);text-shadow:0 6px 30px rgba(0,0,0,.35)}
+.cover .lbl{position:absolute;left:12px;bottom:12px;font:800 11px/1 var(--f-body);letter-spacing:.12em;text-transform:uppercase;padding:7px 10px;border-radius:8px;background:rgba(8,24,46,.6);color:var(--cream);backdrop-filter:blur(6px)}
+.cover .lbl2{left:auto;right:12px}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.cards.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.card{display:flex;flex-direction:column;gap:14px;padding:14px 14px 20px;border-radius:var(--r);background:var(--ink-2);border:1px solid var(--line);transition:border-color .2s,transform .2s;min-width:0}
+.card:hover{border-color:rgba(238,76,88,.45)}
+.card .body{display:flex;flex-direction:column;gap:10px;padding-inline:6px;flex:1}
+.card h3{font-size:24px}
+.card h3 a{text-decoration:none}
+.card .sub{font-size:13.5px;color:var(--muted)}
+.card .desc{font-size:14.5px;color:var(--soft)}
+.meta{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12px;font-weight:700;padding:5px 9px;border-radius:999px;background:var(--ink-3);border:1px solid var(--line);color:var(--soft);max-width:100%}
+.chip.gold{color:var(--gold-2);border-color:rgba(238,76,88,.4)}
+.chip.red{color:var(--blush);border-color:rgba(196,38,46,.45);background:rgba(196,38,46,.12)}
+.card .foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto;padding-top:12px;border-top:1px solid var(--line);flex-wrap:wrap}
+.price{font:700 22px/1 var(--f-display);color:var(--gold-2);font-variant-numeric:tabular-nums}
+.price small{font:600 12px var(--f-body);color:var(--muted)}
+
+/* Catalog */
+.catalog{display:grid;grid-template-columns:260px minmax(0,1fr);gap:28px;align-items:start}
+.filters{position:sticky;top:96px;display:flex;flex-direction:column;gap:16px;padding:20px;border-radius:var(--r);background:var(--ink-2);border:1px solid var(--line)}
+.filters h4{font:800 12px/1 var(--f-body);letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.res-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap;color:var(--muted);font-size:14px}
+.empty{padding:48px 24px;text-align:center;border:1px dashed var(--line-2);border-radius:var(--r);color:var(--muted)}
+.empty b{display:block;font:700 24px var(--f-display);color:var(--cream);margin-bottom:6px}
+
+/* Forms */
+label{font-size:12.5px;font-weight:700;color:var(--muted);letter-spacing:.03em;display:flex;flex-direction:column;gap:7px;min-width:0}
+input,select,textarea{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--ink-3);color:var(--cream);font:500 15px var(--f-body)}
+textarea{resize:vertical;min-height:90px}
+input::placeholder,textarea::placeholder{color:#6f6c64}
+.req::after{content:" *";color:var(--red-2)}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.formbox{display:flex;flex-direction:column;gap:16px;padding:30px;border-radius:22px;background:var(--ink-2);border:1px solid var(--line)}
+.formbox fieldset{border:0;padding:0;margin:0;display:flex;flex-direction:column;gap:14px}
+.formbox legend{font:700 22px var(--f-display);color:var(--cream);margin-bottom:12px;padding:0}
+.ferr{color:var(--bad);font-size:13px;font-weight:600}
+.okbox{padding:28px;border-radius:18px;background:rgba(79,191,138,.08);border:1px solid rgba(79,191,138,.4)}
+.okbox h3{font-size:30px;margin-bottom:8px}
+
+/* Detail pages */
+.detail{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:36px;align-items:start}
+.detail .main{display:flex;flex-direction:column;gap:30px;min-width:0}
+.detail h2{font-size:30px;margin-bottom:12px}
+.side{position:sticky;top:96px;display:flex;flex-direction:column;gap:16px;padding:24px;border-radius:var(--r);background:var(--ink-2);border:1px solid var(--line)}
+.facts{display:grid;gap:0;margin:0}
+.facts div{display:flex;justify-content:space-between;gap:16px;padding-block:11px;border-bottom:1px solid var(--line);font-size:14px}
+.facts dt{color:var(--muted)}
+.facts dd{margin:0;text-align:right;font-weight:700}
+.lst{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.lst li{display:flex;gap:12px;color:var(--soft)}
+.lst li::before{content:"";flex-shrink:0;width:7px;height:7px;margin-top:9px;transform:rotate(45deg);background:var(--gold)}
+.lst.minus li::before{background:var(--muted);transform:none;height:2px;margin-top:12px;width:9px}
+.days{list-style:none;margin:0;padding:0;display:grid;gap:0;counter-reset:d}
+.days li{display:grid;grid-template-columns:76px minmax(0,1fr);gap:16px;padding-block:14px;border-bottom:1px solid var(--line);counter-increment:d}
+.days li::before{content:"День " counter(d);font:700 13px var(--f-body);color:var(--gold-2);letter-spacing:.04em}
+.days.plain li::before{content:"•";font-size:20px;line-height:1}
+.days.plain li{grid-template-columns:24px minmax(0,1fr)}
+.dates{display:grid;gap:10px}
+.date-opt{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--ink-3);cursor:pointer;text-align:left;width:100%}
+.date-opt.on{border-color:var(--gold);background:rgba(238,76,88,.1)}
+.date-opt small{color:var(--muted);font-size:12px}
+.seats{font-size:12px;font-weight:800;white-space:nowrap}
+.seats.low{color:var(--blush)}
+.cols2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+
+/* FAQ */
+.faq details{border-bottom:1px solid var(--line);padding-block:4px}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:20px;align-items:center;padding-block:16px;font:700 21px/1.25 var(--f-display)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";flex-shrink:0;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line);color:var(--gold-2);font:400 22px/1 var(--f-body);transition:transform .25s}
+.faq details[open] summary::after{transform:rotate(45deg);border-color:var(--gold)}
+.faq details p{color:var(--muted);padding-bottom:16px;max-width:66ch}
+.faq-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:56px;align-items:start}
+
+/* Contacts */
+.contact-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.ccard{display:flex;flex-direction:column;gap:8px;padding:24px;border-radius:var(--r);background:var(--ink-2);border:1px solid var(--line)}
+.ccard small{color:var(--muted);font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.ccard b{font-size:20px;font-weight:800;user-select:all;font-variant-numeric:tabular-nums}
+.ccard .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.copybtn{background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:7px 12px;font:600 12px/1 var(--f-body);cursor:pointer}
+.copybtn:hover{color:var(--cream);border-color:var(--gold)}
+
+/* CTA */
+.cta-box{position:relative;overflow:hidden;display:flex;justify-content:space-between;align-items:center;gap:32px;flex-wrap:wrap;padding:48px;border-radius:28px;background:linear-gradient(135deg,#102d50 0%,#102540 54%,#68151d 100%);border:1px solid rgba(224,67,74,.42)}
+.cta-box::before{content:"龙";position:absolute;right:-20px;bottom:-90px;font:900 300px/1 var(--f-han);color:rgba(238,76,88,.07);pointer-events:none}
+.cta-box h2{font-size:clamp(30px,3.6vw,46px);margin-top:12px;max-width:18ch}
+.cta-box p{color:var(--soft);margin-top:10px;max-width:46ch}
+.cta-box .ctas{position:relative}
+
+/* Blog / prose */
+.prose{max-width:720px;display:flex;flex-direction:column;gap:16px;color:var(--soft);font-size:17px}
+.prose h2{font-size:30px;color:var(--cream);margin-top:14px}
+.post-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+
+/* Footer */
+footer{padding-block:48px 40px;border-top:1px solid var(--line);margin-top:40px}
+.fgrid{display:grid;grid-template-columns:1.4fr repeat(3,minmax(0,1fr));gap:32px}
+.fgrid h4{font:800 12px/1 var(--f-body);letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.fgrid a{display:block;color:var(--muted);text-decoration:none;font-size:14px;padding-block:4px}
+.fgrid a:hover{color:var(--cream)}
+.fgrid p{color:var(--muted);font-size:14px;margin-top:14px;max-width:36ch}
+.socials{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.socials a{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;border:1px solid var(--line);text-decoration:none;font-weight:700;font-size:13px;color:var(--cream)}
+.socials a:hover{border-color:var(--gold)}
+.socials svg{width:17px;height:17px}
+.copy-r{color:var(--muted);font-size:13px;padding-top:22px;margin-top:30px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.copy-r a{color:var(--muted)}
+
+/* Toast */
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:200;padding:12px 18px;border-radius:12px;background:var(--cream);color:var(--ink);font-weight:700;font-size:14px;box-shadow:0 10px 40px rgba(0,0,0,.5);max-width:calc(100vw - 32px)}
+
+/* ================= CRM ================= */
+.crm{padding-block:28px 60px}
+.crm-top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:22px}
+.crm-top h1{font-size:38px}
+.tabs{display:flex;gap:4px;padding:4px;border-radius:999px;background:var(--ink-2);border:1px solid var(--line);flex-wrap:wrap}
+.tabs button{border:0;background:none;padding:9px 16px;border-radius:999px;font-weight:700;font-size:13.5px;color:var(--muted);cursor:pointer}
+.tabs button.on{background:var(--ink-4);color:var(--cream)}
+.stat-row{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:8px;margin-bottom:18px}
+.stat{display:flex;flex-direction:column;gap:6px;padding:12px 12px;border-radius:12px;background:var(--ink-2);border:1px solid var(--line);cursor:pointer;text-align:left;border-top:3px solid var(--c,var(--muted))}
+.stat.on{background:var(--ink-3);border-color:var(--c)}
+.stat span{font-size:11.5px;color:var(--muted);font-weight:700;line-height:1.2}
+.stat b{font:800 22px/1 var(--f-body);font-variant-numeric:tabular-nums}
+.fbar{display:grid;grid-template-columns:2fr repeat(4,minmax(0,1fr)) auto auto;gap:10px;align-items:end;margin-bottom:16px}
+.fbar input,.fbar select{padding:10px 12px;font-size:14px}
+.fbar label{font-size:11.5px}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--ink-2)}
+table.tbl{width:100%;border-collapse:collapse;font-size:14px;min-width:900px}
+.tbl th{text-align:left;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:12px 14px;border-bottom:1px solid var(--line);font-weight:800;white-space:nowrap}
+.tbl td{padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:middle}
+.tbl tr:last-child td{border-bottom:0}
+.tbl tbody tr{cursor:pointer}
+.tbl tbody tr:hover{background:var(--ink-3)}
+.tbl td .nm{font-weight:800}
+.tbl td .sm{font-size:12.5px;color:var(--muted)}
+.tnum{font-variant-numeric:tabular-nums;white-space:nowrap}
+.st{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:800;padding:5px 10px;border-radius:999px;background:color-mix(in srgb,var(--c) 16%,transparent);color:var(--c);white-space:nowrap}
+.st::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--c)}
+.who{display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.who img,.who .av{width:24px;height:24px;border-radius:50%;flex-shrink:0}
+.who .av{display:grid;place-items:center;background:var(--ink-4);font-size:11px;font-weight:800}
+.unassigned{color:var(--bad);font-weight:700;font-size:13px}
+.gate{max-width:560px;margin:60px auto;text-align:center;padding:40px 28px;border-radius:22px;background:var(--ink-2);border:1px solid var(--line)}
+.gate h2{font-size:32px;margin-bottom:10px}
+.gate p{color:var(--muted)}
+
+/* Drawer */
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:90}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(760px,100vw);z-index:100;background:var(--ink);border-left:1px solid var(--line-2);display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.dr-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:20px 24px;border-bottom:1px solid var(--line)}
+.dr-head h2{font-size:30px}
+.dr-head .sm{color:var(--muted);font-size:13px;margin-top:4px}
+.xbtn{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--ink-2);cursor:pointer;flex-shrink:0;font-size:20px;line-height:1}
+.dr-body{overflow-y:auto;padding:20px 24px 40px;display:flex;flex-direction:column;gap:22px}
+.dr-ctrl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:16px;border-radius:14px;background:var(--ink-2);border:1px solid var(--line)}
+.blk{display:flex;flex-direction:column;gap:12px}
+.blk h3{font-size:22px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.kv{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.kv label input,.kv label select{padding:9px 11px;font-size:14px}
+.subtabs{display:flex;gap:6px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.subtabs button{border:0;background:none;padding:10px 12px;font-weight:700;font-size:13.5px;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px}
+.subtabs button.on{color:var(--cream);border-color:var(--gold)}
+.subtabs .n{font-size:11px;color:var(--muted);margin-left:4px}
+.tl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.tl li{display:grid;grid-template-columns:14px minmax(0,1fr);gap:12px;padding-block:10px;border-bottom:1px solid var(--line)}
+.tl li::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--c,var(--muted));margin-top:7px}
+.tl .t{font-size:14px;color:var(--soft);white-space:pre-wrap;word-break:break-word}
+.tl .m{font-size:12px;color:var(--muted);margin-top:2px}
+.tl li.comment .t{color:var(--cream)}
+.addrow{display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap}
+.addrow > *{flex:1 1 140px}
+.addrow .btn{flex:0 0 auto}
+.items{display:flex;flex-direction:column;gap:8px}
+.item{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;background:var(--ink-2);border:1px solid var(--line);font-size:14px}
+.item .grow{flex:1;min-width:0;word-break:break-word}
+.item .sm{font-size:12px;color:var(--muted)}
+.item input[type=checkbox]{width:18px;height:18px;flex-shrink:0;accent-color:var(--gold)}
+.item.done .grow{text-decoration:line-through;color:var(--muted)}
+.item .overdue{color:var(--bad);font-weight:800}
+.icon-btn{border:0;background:none;color:var(--muted);cursor:pointer;padding:4px 6px;border-radius:8px;font-size:13px}
+.icon-btn:hover{color:var(--bad)}
+.total{display:flex;justify-content:space-between;padding:12px 14px;border-radius:12px;background:var(--ink-3);font-weight:800}
+.set-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start}
+.panel{padding:22px;border-radius:var(--r);background:var(--ink-2);border:1px solid var(--line);display:flex;flex-direction:column;gap:14px}
+.panel h3{font-size:24px}
+.panel .hint{color:var(--muted);font-size:13.5px}
+.ruleline{display:grid;grid-template-columns:200px minmax(0,1fr);gap:12px;align-items:center;padding-block:10px;border-bottom:1px solid var(--line)}
+.ruleline > span{font-weight:700;font-size:14px}
+.pickers{display:flex;flex-wrap:wrap;gap:6px}
+.pick{border:1px solid var(--line);background:var(--ink-3);border-radius:999px;padding:6px 11px;font-size:12.5px;font-weight:700;cursor:pointer;color:var(--muted)}
+.pick.on{border-color:var(--gold);color:var(--gold-2);background:rgba(238,76,88,.1)}
+.search-pop{position:relative}
+.search-pop .res{position:absolute;left:0;right:0;top:100%;margin-top:6px;z-index:5;background:var(--ink-3);border:1px solid var(--line-2);border-radius:12px;overflow:hidden}
+.search-pop .res button{display:flex;align-items:center;gap:10px;width:100%;border:0;background:none;padding:10px 12px;cursor:pointer;text-align:left;font-size:14px}
+.search-pop .res button:hover{background:var(--ink-4)}
+.search-pop .res img{width:24px;height:24px;border-radius:50%}
+
+/* Responsive */
+@media (max-width:1100px){
+  .menu{display:none}
+  .burger{display:grid}
+  .nav .btn-head{display:none}
+  .dirs{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .process{grid-template-columns:repeat(2,minmax(0,1fr));gap:32px}
+  .proc .num::after{display:none}
+  .partners{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .stat-row{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .fbar{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .fbar .q{grid-column:1/-1}
+  .fgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:900px){
+  .hero-bg{position:relative;height:360px;background-position:80% 30%}
+  .hero-bg::after{background:linear-gradient(0deg,var(--ink) 0%,rgba(8,24,46,0) 45%)}
+  .hero-in{grid-template-columns:1fr;min-height:0;padding-block:0 60px;margin-top:-40px}
+  .hand{top:24px;font-size:26px}.hand small{font-size:17px}
+  .seal{display:none}
+  .cards,.post-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .catalog,.detail,.faq-grid,.about-strip,.set-grid{grid-template-columns:1fr}
+  .filters,.side{position:static}
+  .advs{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
+  .cta-box{padding:32px 22px}
+  .sec{padding-block:64px}
+  .kv{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:600px){
+  .wrap{padding-inline:16px}
+  .nav{gap:10px;height:66px}
+  .brand img{width:40px;height:40px}
+  .brand b{font-size:15px}.brand small{display:none}
+  .cards.two,.dirs,.process,.cards,.post-list,.grid2,.grid3,.cols2,.kv,.dr-ctrl{grid-template-columns:1fr}
+  .partners{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ctas .btn{width:100%}
+  .stories{gap:16px}
+  .story{width:90px}.ring{width:82px;height:82px}.ring div{font-size:10px}
+  .formbox{padding:20px}
+  .stat-row{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .fbar{grid-template-columns:1fr 1fr}
+  .fgrid{grid-template-columns:1fr}
+  .ruleline{grid-template-columns:1fr}
+  .dr-head,.dr-body{padding-inline:16px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+
+/* Photograph covers for the six story highlights */
+
+.story .ring div{background:#4a4544;border:3px solid var(--ink-2)}
+.story .ring img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;border-radius:50%;filter:none;mix-blend-mode:normal;opacity:1;z-index:1;transition:transform .3s}
+.story:hover .ring img{transform:scale(1.08)}
+.story .ring b{position:relative;z-index:0}
+
+
+/* Full-height photo stories with legible captions */
+.sv-media{background:linear-gradient(150deg,#665451,#36504d)}
+.sv-media::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(180deg,rgba(20,26,29,.63),transparent 23%,transparent 46%,rgba(20,26,29,.3))}
+.sv-photo{position:relative;z-index:1;filter:saturate(.9)}
+.sv-fallback{position:absolute;inset:0;display:grid;place-items:center;font:700 140px var(--f-han);color:#ebd1ac33}
+.sv-cap{padding:85px 25px 26px;background:linear-gradient(0deg,rgba(24,29,32,.97),rgba(24,29,32,.88) 62%,transparent);gap:12px}
+.sv-cap h3{font-size:33px;line-height:1.08;color:#fff0dc}.sv-cap p{font-size:14px;line-height:1.65;color:#eee7de}
+.sv-photo-note{font-size:9px;letter-spacing:.04em;color:#d5cfc5}
+.sv-head{padding:4px}.sv-head small{font-size:10px}.sv-cap .btn{margin-top:3px}
+@media(max-width:480px){.sv-cap{padding-inline:21px}.sv-cap h3{font-size:30px}}
+@media(max-height:600px){.sv-cap{padding:45px 20px 14px;gap:7px}.sv-cap h3{font-size:24px}.sv-cap p{font-size:12px}.sv-head small{display:none}}
+
+/* Red / navy art direction. Keep the supplied panorama intact. */
+:root{--red:#FF0000;--red-2:#f34b60;--gold:#f58a93;--gold-2:#ffd5d9;--wrap:1280px}
+header.top{background:rgba(8,24,46,.96);border-bottom:1px solid rgba(205,222,245,.13)}
+.nav{height:92px;gap:20px}
+.brand{gap:10px}
+.brand-mark{position:relative;display:block;width:65px;height:71px;overflow:hidden;flex-shrink:0}
+.brand .brand-mark img{position:absolute;left:-53px;top:-13px;width:169px;height:auto;max-width:none;border-radius:0;box-shadow:none}
+.brand b{font:800 21px/1.05 var(--f-body);letter-spacing:.055em}
+.brand small{font:600 10px/1.5 var(--f-body);letter-spacing:.28em;color:#d7e0ed;margin-top:6px}
+.menu{gap:0}.menu a{font-size:12px;padding:8px}
+.nav .btn{font-size:12px;padding:13px 17px}
+.hero{background:#08182e;isolation:isolate;border-bottom:1px solid rgba(220,230,247,.1)}
+.hero-bg{inset:0 0 0 31%;background-position:58% center;background-size:cover;opacity:1}
+.hero-bg::after{background:linear-gradient(90deg,#08182e 0%,rgba(8,24,46,.88) 12%,rgba(8,24,46,.25) 38%,rgba(8,24,46,0) 70%),linear-gradient(0deg,#08182e 0%,rgba(8,24,46,.2) 17%,transparent 36%)}
+.hero-in{min-height:720px;grid-template-columns:1fr 1fr;padding-block:76px 105px}
+.hero-copy{max-width:600px;gap:25px}
+.hero h1{font-size:clamp(48px,5.4vw,78px);line-height:1.01;letter-spacing:-.025em;color:#fff}
+.hero h1 em{display:block;color:#ff7682;font-style:italic;margin-top:9px}
+.hero .lead{font-size:16px;line-height:1.8;color:#d4deec;max-width:45ch}
+.hero .pill{font-size:10px;letter-spacing:.1em;background:rgba(214,38,57,.14);border-color:rgba(245,98,112,.5);color:#ffb9c1;padding:10px 13px}
+.hero .feat{font-size:12px;gap:9px;color:#e0e9f6}
+.hero .feats{gap:16px}.hero .feat i{background:rgba(14,38,69,.92);border-color:rgba(255,147,158,.24);color:#ff7b8a}
+.hero .ctas{gap:10px}.hero .ctas .btn{padding:16px 19px;font-size:13px}
+.hero .btn-ghost{background:rgba(8,24,46,.85);border-color:rgba(230,238,251,.45);color:#f6f7fb}
+.hero .note{font-size:12px;color:#aebed4;max-width:40ch}
+.hero-art-label{position:absolute;right:max(28px,calc((100vw - 1232px)/2));bottom:32px;display:flex;align-items:center;gap:13px;color:#fff;z-index:1}
+.hero-art-label b{font:600 43px/1 var(--f-han);color:#ff8995}
+.hero-art-label span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;line-height:1.7}
+.hero-art-label span small{display:block;font-size:10px;letter-spacing:.07em;color:#becce0}
+.btn-red{box-shadow:0 10px 28px -12px rgba(225,43,67,.75)}
+.btn-ghost{border-color:rgba(195,214,240,.36);color:#e1ebf9}
+.btn-ghost:hover{background:rgba(211,43,63,.12);border-color:var(--red-2)}
+.eyebrow{color:#ff8c98}.eyebrow::before{background:var(--red-2)}
+.cta-box{background:radial-gradient(ellipse at 100% 100%,rgba(207,36,57,.28),transparent 65%),linear-gradient(120deg,#173657,#0b1c35);border-color:rgba(231,83,102,.38)}
+.cta-box::before{color:rgba(237,67,89,.1)}
+.cta-box h2{max-width:21ch;color:#fff}
+.quote-card{background:linear-gradient(135deg,#28304b,#102540 80%);border-color:rgba(227,76,96,.4)}
+.ring{background:conic-gradient(from 210deg,#FF0000,#fa8794,#283e6b,#FF0000)}
+.sv-head img{object-fit:contain;border-radius:6px;background:#f6f7fb}
+footer .brand-mark{width:65px;height:71px}
+@media(max-width:1240px){.menu{display:none}.burger{display:grid}.nav .btn-head{display:none}}
+@media(max-width:900px){
+ .hero{display:flex;flex-direction:column}
+ .hero-bg{position:relative;inset:auto;height:auto;aspect-ratio:16/9;width:100%;background-position:center;background-size:cover}
+ .hero-bg::after{background:linear-gradient(0deg,#08182e 0%,rgba(8,24,46,.18) 20%,transparent 45%)}
+ .hero-in{display:block;min-height:0;width:100%;padding-block:4px 50px;margin-top:0;z-index:1}
+ .hero-copy{max-width:690px;gap:23px}
+ .hero h1{font-size:clamp(46px,8vw,69px)}
+ .hero .lead{max-width:58ch}
+ .hero-art-label{position:static;padding:0 24px 28px;align-self:flex-end;order:3}
+ .hero-art-label b{font-size:30px}
+}
+@media(max-width:600px){
+ .nav{height:76px}.brand-mark{width:51px;height:56px}
+ .brand .brand-mark img{width:132px;left:-41px;top:-10px}
+ .brand b{font-size:18px}.brand small{display:block;font-size:9px;letter-spacing:.26em}
+ .hero h1{font-size:clamp(42px,10.7vw,62px)}
+ .hero-copy{gap:21px}.hero .lead{font-size:14px;line-height:1.75}
+ .hero .pill{font-size:9px;white-space:normal;line-height:1.5;padding:8px 10px;letter-spacing:.07em}
+ .hero .feats{gap:14px;display:grid;grid-template-columns:1fr 1fr}
+ .hero .feat:last-child{grid-column:1/-1}
+ .hero .ctas{width:100%}.hero .ctas .btn{min-height:49px}
+ .hero-art-label{padding-inline:16px}
+ footer .brand-mark{width:51px;height:56px}
+}
+</style>
+<div id="app"></div>
+<script>
+const HERO="./china-panorama.jpeg";
+const LOGO="./dragon-logo.png";
+/* ===== Каталог Dragon Education =====
+   Стоимость, даты, дедлайны и места — демонстрационные значения, замените актуальными. */
+const CONTACTS = {
+  waKz: '+7 (777) 186-88-71', waKzRaw: '77771868871',
+  waCn: '+86 176 1572 2649', waCnRaw: '8617615722649',
+  phone2: '+7 (777) 186-88-71',
+  instagram: 'https://www.instagram.com/dragonn_education/',
+  threads: 'https://www.threads.net/@dragonn_education'
+};
+
+const DIRS = [
+  ['courses', 'Языковые курсы'],
+  ['exams', 'Экзамены: HSK, BCT, YCT, IELTS, CSCA'],
+  ['foundation', 'Foundation'],
+  ['bachelor', 'Бакалавриат'],
+  ['master', 'Магистратура'],
+  ['phd', 'Докторантура'],
+  ['tour', 'Туры'],
+  ['camp', 'Лагеря'],
+  ['other', 'Консультация / другое']
+];
+const DIR = Object.fromEntries(DIRS);
+
+const PTYPES = { courses: 'Языковые курсы', exams: 'Экзамены', foundation: 'Foundation', bachelor: 'Бакалавриат', master: 'Магистратура', phd: 'Докторантура' };
+
+const SCHOLARSHIPS = {
+  csc: 'Стипендия правительства Китая (CSC)',
+  uni: 'Стипендия университета',
+  prov: 'Провинциальная стипендия',
+  iclts: 'Стипендия для изучающих китайский (ICLTS)'
+};
+
+const UNIS = [
+  { id: 'blcc', name: 'Пекинский колледж языка и культуры (BLCC)', cn: '北京华文学院', city: 'Пекин', glyph: '华', hue: 352,
+    type: 'Языковой колледж', langs: 'Китайский',
+    about: 'Колледж, где иностранцы изучают китайский язык и культуру. Принимает студентов с 15–16 лет на семестр или год обучения. Наши студенты учатся здесь прямо сейчас.',
+    levels: ['Языковые курсы', 'Подготовка к HSK'], from: 2600, dorm: 'Общежитие на кампусе, ≈ $150–250 в месяц',
+    req: ['Возраст от 15–16 лет', 'Загранпаспорт', 'Медицинская справка', 'Знание языка не требуется'],
+    sch: ['iclts'] },
+  { id: 'blcu', name: 'Пекинский университет языка и культуры (BLCU)', cn: '北京语言大学', city: 'Пекин', glyph: '语', hue: 18,
+    type: 'Языковой университет', langs: 'Китайский, английский',
+    about: 'Один из самых известных вузов Китая для иностранных студентов. Сильные языковые программы, подготовительный год и бакалавриат по китайской филологии.',
+    levels: ['Языковые курсы', 'Foundation', 'Бакалавриат', 'Магистратура'], from: 3700, dorm: 'Общежитие, ≈ $200–350 в месяц',
+    req: ['Аттестат или диплом', 'HSK 4–5 для программ на китайском', 'Медицинская справка', 'Справка о несудимости'],
+    sch: ['csc', 'iclts', 'uni'] },
+  { id: 'pku', name: 'Пекинский университет', cn: '北京大学', city: 'Пекин', glyph: '北', hue: 4,
+    type: 'Многопрофильный', langs: 'Китайский, английский',
+    about: 'Ведущий исследовательский университет Китая. Магистерские программы на английском языке по международным отношениям, экономике и праву.',
+    levels: ['Бакалавриат', 'Магистратура', 'Докторантура'], from: 4500, dorm: 'Общежитие, ≈ $250–400 в месяц',
+    req: ['Высокий средний балл', 'HSK 5–6 или IELTS 6.5+', 'Рекомендательные письма', 'Мотивационное письмо'],
+    sch: ['csc', 'uni'] },
+  { id: 'thu', name: 'Университет Цинхуа', cn: '清华大学', city: 'Пекин', glyph: '清', hue: 280,
+    type: 'Технический', langs: 'Китайский, английский',
+    about: 'Один из сильнейших технических университетов мира: инженерия, компьютерные науки, архитектура.',
+    levels: ['Бакалавриат', 'Магистратура', 'Докторантура'], from: 5000, dorm: 'Общежитие, ≈ $250–400 в месяц',
+    req: ['Высокий средний балл', 'HSK 5–6 или IELTS 6.5+', 'Исследовательское предложение (PhD)', 'Рекомендации профессоров'],
+    sch: ['csc', 'uni'] },
+  { id: 'fudan', name: 'Университет Фудань', cn: '复旦大学', city: 'Шанхай', glyph: '复', hue: 210,
+    type: 'Многопрофильный', langs: 'Китайский, английский',
+    about: 'Престижный университет Шанхая. Известен программами MBA, экономики и медицины.',
+    levels: ['Языковые курсы', 'Бакалавриат', 'Магистратура'], from: 4200, dorm: 'Общежитие, ≈ $300–450 в месяц',
+    req: ['Диплом бакалавра (для магистратуры)', 'IELTS 6.5+ для англ. программ', 'GMAT/GRE по требованию программы'],
+    sch: ['csc', 'uni', 'prov'] },
+  { id: 'zju', name: 'Чжэцзянский университет', cn: '浙江大学', city: 'Ханчжоу', glyph: '浙', hue: 160,
+    type: 'Многопрофильный', langs: 'Китайский, английский',
+    about: 'Крупный исследовательский университет в Ханчжоу, рядом с Шанхаем. Сильные программы по бизнесу и инженерии.',
+    levels: ['Языковые курсы', 'Бакалавриат', 'Магистратура'], from: 3800, dorm: 'Общежитие, ≈ $200–350 в месяц',
+    req: ['Аттестат с хорошими оценками', 'IELTS 6.0+ или HSK 4–5', 'Медицинская справка'],
+    sch: ['csc', 'uni', 'prov'] },
+  { id: 'ouc', name: 'Океанологический университет Китая', cn: '中国海洋大学', city: 'Циндао', glyph: '海', hue: 195,
+    type: 'Многопрофильный', langs: 'Китайский, английский',
+    about: 'Университет в приморском Циндао: океанология, морская биология, экология и языковые программы.',
+    levels: ['Языковые курсы', 'Бакалавриат', 'Магистратура'], from: 2800, dorm: 'Общежитие, ≈ $150–250 в месяц',
+    req: ['Аттестат или диплом', 'HSK 4 для программ на китайском', 'Медицинская справка'],
+    sch: ['csc', 'iclts', 'prov'] },
+  { id: 'sysu', name: 'Университет Сунь Ятсена', cn: '中山大学', city: 'Гуанчжоу', glyph: '中', hue: 140,
+    type: 'Многопрофильный', langs: 'Китайский, английский',
+    about: 'Ведущий университет южного Китая. Медицина, общественное здравоохранение, бизнес.',
+    levels: ['Бакалавриат', 'Магистратура', 'Докторантура'], from: 3900, dorm: 'Общежитие, ≈ $200–350 в месяц',
+    req: ['Диплом и транскрипт', 'HSK 5 или IELTS 6.5', 'Исследовательский план (PhD)'],
+    sch: ['csc', 'uni', 'prov'] },
+  { id: 'scu', name: 'Сычуаньский университет', cn: '四川大学', city: 'Чэнду', glyph: '川', hue: 30,
+    type: 'Многопрофильный', langs: 'Китайский, английский',
+    about: 'Один из крупнейших университетов западного Китая. Чэнду — комфортный и недорогой город для жизни.',
+    levels: ['Языковые курсы', 'Бакалавриат', 'Магистратура'], from: 3000, dorm: 'Общежитие, ≈ $150–250 в месяц',
+    req: ['Аттестат или диплом', 'HSK 4 или IELTS 6.0', 'Медицинская справка'],
+    sch: ['csc', 'uni', 'prov'] },
+  { id: 'xjtu', name: 'Сианьский университет Цзяотун', cn: '西安交通大学', city: 'Сиань', glyph: '西', hue: 45,
+    type: 'Технический', langs: 'Китайский, английский',
+    about: 'Сильный технический вуз в древней столице Китая. Инженерия, компьютерные науки, медицина.',
+    levels: ['Бакалавриат', 'Магистратура', 'Докторантура'], from: 3300, dorm: 'Общежитие, ≈ $150–250 в месяц',
+    req: ['Аттестат с сильной математикой', 'IELTS 6.0+ для англ. программ', 'Медицинская справка'],
+    sch: ['csc', 'uni', 'prov'] },
+  { id: 'ynu', name: 'Юньнаньский университет', cn: '云南大学', city: 'Куньмин', glyph: '云', hue: 120,
+    type: 'Многопрофильный', langs: 'Китайский',
+    about: 'Университет в «городе вечной весны» Куньмине. Доступные языковые программы и мягкий климат круглый год.',
+    levels: ['Языковые курсы', 'Бакалавриат'], from: 2200, dorm: 'Общежитие, ≈ $120–200 в месяц',
+    req: ['Аттестат', 'Знание языка не требуется для языковых курсов'],
+    sch: ['iclts', 'prov'] },
+  { id: 'gxnu', name: 'Гуансийский педагогический университет', cn: '广西师范大学', city: 'Гуйлинь', glyph: '桂', hue: 95,
+    type: 'Педагогический', langs: 'Китайский',
+    about: 'Университет в живописном Гуйлине. Языковые курсы и подготовка преподавателей китайского.',
+    levels: ['Языковые курсы', 'Бакалавриат'], from: 2000, dorm: 'Общежитие, ≈ $100–180 в месяц',
+    req: ['Аттестат', 'Медицинская справка'],
+    sch: ['iclts', 'prov'] }
+];
+const UNI = Object.fromEntries(UNIS.map(u => [u.id, u]));
+
+/* level: zero | basic | mid | adv | any ; price: USD/год (или за курс), null — по запросу */
+const PROGRAMS = [
+  { id: 'cn-zero', title: 'Китайский с нуля — онлайн-группа', type: 'courses', uni: null, country: 'Онлайн', city: 'Онлайн', level: 'zero', lang: 'Китайский',
+    duration: '3 месяца на уровень', price: null, priceNote: 'по запросу', deadline: 'Набор каждый месяц', glyph: '汉', hue: 352,
+    desc: 'Занятия с преподавателями — носителями языка. Тоны, иероглифы, грамматика и живая разговорная речь.',
+    req: ['Без подготовки', 'Компьютер или телефон с камерой'], sch: 'Скидки при оплате за уровень', housing: 'Не требуется — онлайн' },
+  { id: 'cn-ind', title: 'Китайский индивидуально онлайн', type: 'courses', uni: null, country: 'Онлайн', city: 'Онлайн', level: 'any', lang: 'Китайский',
+    duration: 'Гибкий график', price: null, priceNote: 'по запросу', deadline: 'Старт в любой день', glyph: '说', hue: 20,
+    desc: 'Программа под вашу цель: поступление, работа, путешествия. Темп и время занятий — по вашему расписанию.',
+    req: ['Любой уровень'], sch: '—', housing: 'Не требуется — онлайн' },
+  { id: 'hsk', title: 'Подготовка к HSK 1–6 и HSKK', type: 'exams', uni: null, country: 'Онлайн', city: 'Онлайн', level: 'any', lang: 'Китайский',
+    duration: '2–6 месяцев', price: null, priceNote: 'по запросу', deadline: 'Под дату вашего экзамена', glyph: '考', hue: 40,
+    desc: 'HSK — главный экзамен для поступления и стипендий. Пробные тесты, стратегии по разделам, устный HSKK.',
+    req: ['Определение уровня — бесплатно'], sch: '—', housing: 'Не требуется — онлайн' },
+  { id: 'bct', title: 'BCT — деловой китайский', type: 'exams', uni: null, country: 'Онлайн', city: 'Онлайн', level: 'mid', lang: 'Китайский',
+    duration: '3 месяца', price: null, priceNote: 'по запросу', deadline: 'Группа формируется', glyph: '商', hue: 60,
+    desc: 'Подготовка к Business Chinese Test: переговоры, переписка, выставки и работа с поставщиками.',
+    req: ['Уровень от HSK 3'], sch: '—', housing: 'Не требуется — онлайн' },
+  { id: 'yct', title: 'YCT — китайский для школьников', type: 'exams', uni: null, country: 'Онлайн', city: 'Онлайн', level: 'zero', lang: 'Китайский',
+    duration: 'Учебный год', price: null, priceNote: 'по запросу', deadline: 'Набор открыт', glyph: '童', hue: 330,
+    desc: 'Youth Chinese Test для детей 8–15 лет. Игровой формат и подготовка к официальному экзамену.',
+    req: ['Возраст 8–15 лет'], sch: '—', housing: 'Не требуется — онлайн' },
+  { id: 'ielts', title: 'IELTS для программ на английском', type: 'exams', uni: null, country: 'Онлайн', city: 'Онлайн', level: 'any', lang: 'Английский',
+    duration: '2–4 месяца', price: null, priceNote: 'по запросу', deadline: 'Набор открыт', glyph: 'EN', hue: 220,
+    desc: 'Многие вузы Китая обучают на английском. Готовим к IELTS на нужный балл — обычно 6.0–6.5.',
+    req: ['Английский от уровня B1'], sch: '—', housing: 'Не требуется — онлайн' },
+  { id: 'csca', title: 'CSCA — академический тест для бакалавриата', type: 'exams', uni: null, country: 'Онлайн', city: 'Онлайн', level: 'any', lang: 'Китайский / английский',
+    duration: '3 месяца', price: null, priceNote: 'по запросу', deadline: 'Под сессию тестирования', glyph: '学', hue: 260,
+    desc: 'Подготовка к единому академическому тесту для иностранных абитуриентов бакалавриата в Китае (математика, профильные предметы, китайский).',
+    req: ['Ученики 10–11 классов и выпускники'], sch: 'Важен для стипендий на бакалавриат', housing: 'Не требуется — онлайн' },
+  { id: 'blcc-sem', title: 'Семестр или год китайского в Пекине', type: 'courses', uni: 'blcc', country: 'Китай', city: 'Пекин', level: 'any', lang: 'Китайский',
+    duration: 'Семестр / год', price: 2600, deadline: '15 декабря 2026 — весенний семестр', glyph: '华', hue: 352,
+    desc: 'Китайский с преподавателями, подготовка к HSK, международная студенческая среда и жизнь в Пекине. Принимаем с 15–16 лет.',
+    req: ['Возраст от 15–16 лет', 'Загранпаспорт', 'Медицинская справка'], sch: 'Частичные скидки колледжа', housing: 'Общежитие на кампусе' },
+  { id: 'blcu-lang', title: 'Языковой год в BLCU', type: 'courses', uni: 'blcu', country: 'Китай', city: 'Пекин', level: 'any', lang: 'Китайский',
+    duration: '1 год', price: 3700, deadline: '30 мая 2027 — осенний набор', glyph: '语', hue: 18,
+    desc: 'Интенсивный китайский в одном из главных языковых вузов Китая. Подходит перед поступлением на бакалавриат.',
+    req: ['Аттестат', 'Возраст от 18 лет', 'Загранпаспорт'], sch: 'ICLTS — до 100% обучения и общежитие', housing: 'Общежитие на кампусе' },
+  { id: 'ouc-lang', title: 'Китайский у моря — языковой курс в Циндао', type: 'courses', uni: 'ouc', country: 'Китай', city: 'Циндао', level: 'any', lang: 'Китайский',
+    duration: 'Семестр / год', price: 2800, deadline: '1 июня 2027', glyph: '海', hue: 195,
+    desc: 'Языковая программа Океанологического университета. Небольшие группы и спокойный приморский город.',
+    req: ['Аттестат', 'Загранпаспорт'], sch: 'ICLTS, провинциальная', housing: 'Общежитие' },
+  { id: 'blcu-found', title: 'Foundation — подготовительный год', type: 'foundation', uni: 'blcu', country: 'Китай', city: 'Пекин', level: 'zero', lang: 'Китайский',
+    duration: '1 год', price: 4000, deadline: '30 мая 2027', glyph: '预', hue: 30,
+    desc: 'Язык до HSK 4 и базовые предметы. После года — поступление на бакалавриат в китайские вузы.',
+    req: ['Аттестат', 'Знание языка не требуется'], sch: 'Скидки университета', housing: 'Общежитие на кампусе' },
+  { id: 'zju-ba-trade', title: 'Бакалавриат: международная торговля', type: 'bachelor', uni: 'zju', country: 'Китай', city: 'Ханчжоу', level: 'mid', lang: 'Английский',
+    duration: '4 года', price: 4300, deadline: '31 марта 2027', glyph: '贸', hue: 160,
+    desc: 'Экономика, логистика и торговля с Китаем. Обучение на английском, китайский — дополнительно.',
+    req: ['Аттестат', 'IELTS 6.0+', 'Мотивационное письмо'], sch: 'CSC, стипендия университета', housing: 'Общежитие' },
+  { id: 'blcu-ba-cn', title: 'Бакалавриат: китайский язык и литература', type: 'bachelor', uni: 'blcu', country: 'Китай', city: 'Пекин', level: 'mid', lang: 'Китайский',
+    duration: '4 года', price: 3700, deadline: '30 апреля 2027', glyph: '文', hue: 10,
+    desc: 'Филология, перевод и преподавание китайского. Путь к работе переводчиком и в международных компаниях.',
+    req: ['Аттестат', 'HSK 4 (от 180 баллов)', 'Медицинская справка'], sch: 'CSC, ICLTS', housing: 'Общежитие на кампусе' },
+  { id: 'xjtu-ba-cs', title: 'Бакалавриат: компьютерные науки', type: 'bachelor', uni: 'xjtu', country: 'Китай', city: 'Сиань', level: 'mid', lang: 'Английский',
+    duration: '4 года', price: 3300, deadline: '15 апреля 2027', glyph: '码', hue: 45,
+    desc: 'Программирование, данные и ИИ в сильном техническом вузе. Обучение на английском.',
+    req: ['Аттестат с сильной математикой', 'IELTS 6.0+', 'CSCA — по требованию вуза'], sch: 'CSC, провинциальная', housing: 'Общежитие' },
+  { id: 'scu-ba-med', title: 'Бакалавриат: медицина (MBBS)', type: 'bachelor', uni: 'scu', country: 'Китай', city: 'Чэнду', level: 'mid', lang: 'Английский',
+    duration: '6 лет', price: 5200, deadline: '30 апреля 2027', glyph: '医', hue: 0,
+    desc: 'Программа MBBS на английском языке с практикой в университетских клиниках.',
+    req: ['Аттестат с биологией и химией', 'IELTS 6.0+', 'Собеседование'], sch: 'Стипендия университета', housing: 'Общежитие' },
+  { id: 'fudan-mba', title: 'Магистратура: MBA', type: 'master', uni: 'fudan', country: 'Китай', city: 'Шанхай', level: 'adv', lang: 'Английский',
+    duration: '2 года', price: 9000, deadline: '1 марта 2027', glyph: '商', hue: 210,
+    desc: 'Международная программа MBA в Шанхае — деловой столице Китая.',
+    req: ['Диплом бакалавра', 'IELTS 6.5+', 'Опыт работы от 2 лет', 'GMAT — желательно'], sch: 'Стипендия университета', housing: 'Общежитие или аренда' },
+  { id: 'pku-ma-ir', title: 'Магистратура: международные отношения', type: 'master', uni: 'pku', country: 'Китай', city: 'Пекин', level: 'adv', lang: 'Английский',
+    duration: '2 года', price: 5000, deadline: '15 января 2027', glyph: '国', hue: 4,
+    desc: 'Политика, экономика и дипломатия Азии в ведущем университете страны.',
+    req: ['Диплом бакалавра', 'IELTS 6.5+', 'Два рекомендательных письма'], sch: 'CSC — полное покрытие', housing: 'Общежитие' },
+  { id: 'ouc-ma-eco', title: 'Магистратура: морская экология', type: 'master', uni: 'ouc', country: 'Китай', city: 'Циндао', level: 'adv', lang: 'Английский',
+    duration: '3 года', price: 3600, deadline: '31 марта 2027', glyph: '洋', hue: 195,
+    desc: 'Исследования океана и прибрежных экосистем в профильном университете.',
+    req: ['Диплом бакалавра по профилю', 'IELTS 6.0+'], sch: 'CSC, провинциальная', housing: 'Общежитие' },
+  { id: 'thu-phd-eng', title: 'Докторантура: инженерия', type: 'phd', uni: 'thu', country: 'Китай', city: 'Пекин', level: 'adv', lang: 'Английский',
+    duration: '4 года', price: 6000, deadline: '1 декабря 2026', glyph: '工', hue: 280,
+    desc: 'PhD в лабораториях Цинхуа. Подбираем научного руководителя и готовим исследовательское предложение.',
+    req: ['Диплом магистра', 'IELTS 6.5+', 'Исследовательское предложение', 'Письмо от руководителя'], sch: 'CSC — обучение, общежитие и стипендия', housing: 'Общежитие' },
+  { id: 'sysu-phd-ph', title: 'Докторантура: общественное здравоохранение', type: 'phd', uni: 'sysu', country: 'Китай', city: 'Гуанчжоу', level: 'adv', lang: 'Английский',
+    duration: '3–4 года', price: 4500, deadline: '15 февраля 2027', glyph: '健', hue: 140,
+    desc: 'Эпидемиология и управление здравоохранением в ведущем вузе южного Китая.',
+    req: ['Диплом магистра', 'IELTS 6.5+', 'Публикации — плюс'], sch: 'CSC, стипендия университета', housing: 'Общежитие' }
+];
+const PROGRAM = Object.fromEntries(PROGRAMS.map(p => [p.id, p]));
+
+const LEVELS = { zero: 'С нуля', basic: 'Базовый (HSK 1–3)', mid: 'Средний (HSK 4 / IELTS 6)', adv: 'Продвинутый', any: 'Любой уровень' };
+
+const TOURS = [
+  { id: 'bj-gz', title: 'Тур мечты: Пекин + Гуанчжоу', kind: 'Туристический', format: 'Групповой', cities: 'Пекин, Гуанчжоу', days: 8, price: 1490, glyph: '京', hue: 352,
+    dates: [{ from: '2027-04-20', to: '2027-04-27', seats: 6, left: 6 }, { from: '2027-07-20', to: '2027-07-27', seats: 6, left: 4 }],
+    summary: 'Запретный город, Великая Китайская стена и вечерние огни Гуанчжоу. Небольшая группа — максимум внимания.',
+    plan: ['Прилёт в Пекин, заселение, ужин с утками по-пекински', 'Площадь Тяньаньмэнь и Запретный город', 'Великая Китайская стена (Мутяньюй)', 'Храм Неба, хутуны, переезд скоростным поездом в Гуанчжоу', 'Башня Кантон и вечерняя прогулка по Жемчужной реке', 'Старый город Гуанчжоу, чайная церемония', 'Свободный день, шопинг', 'Вылет домой'],
+    inc: ['Проживание в отелях 4*', 'Завтраки', 'Скоростной поезд Пекин — Гуанчжоу', 'Входные билеты по программе', 'Русскоговорящий сопровождающий'],
+    exc: ['Авиабилеты', 'Виза (помогаем оформить)', 'Обеды и ужины, кроме указанных', 'Личные расходы'] },
+  { id: 'canton', title: 'Кантонская ярмарка', kind: 'Выставочный', format: 'Групповой', cities: 'Гуанчжоу', days: 6, price: 990, glyph: '展', hue: 30,
+    dates: [{ from: '2027-04-14', to: '2027-04-19', seats: 10, left: 7 }, { from: '2027-10-14', to: '2027-10-19', seats: 10, left: 10 }],
+    summary: 'Поездка на крупнейшую выставку Китая: поиск поставщиков, переговоры с переводчиком, посещение производств.',
+    plan: ['Прилёт, регистрация бейджей выставки', 'Выставка: павильоны по вашей категории', 'Выставка: переговоры с поставщиками', 'Посещение фабрики', 'Оптовые рынки Гуанчжоу', 'Вылет'],
+    inc: ['Отель рядом с выставкой', 'Завтраки', 'Регистрация на выставку', 'Переводчик на переговорах', 'Трансферы'],
+    exc: ['Авиабилеты', 'Виза', 'Доставка грузов'] },
+  { id: 'biz', title: 'Бизнес-тур: поставщики и фабрики', kind: 'Бизнес', format: 'Индивидуальный', cities: 'Гуанчжоу, Фошань, Шэньчжэнь', days: 5, price: 1200, glyph: '商', hue: 45,
+    dates: [{ from: 'flex', to: 'flex', seats: 0, left: 0 }],
+    summary: 'Маршрут под ваш бизнес: подбор поставщиков, проверка производства, переговоры и контроль заказа.',
+    plan: ['Встреча, брифинг по задачам', 'Фабрики по вашему профилю', 'Переговоры и образцы', 'Шоурумы и оптовые центры', 'Подведение итогов, вылет'],
+    inc: ['Персональный переводчик', 'Подбор фабрик', 'Трансферы', 'Отель 4*'],
+    exc: ['Авиабилеты', 'Виза', 'Оплата образцов'] },
+  { id: 'yiwu', title: 'Шопинг-тур в Иу', kind: 'Шопинг', format: 'Групповой', cities: 'Иу, Ханчжоу', days: 5, price: 850, glyph: '市', hue: 160,
+    dates: [{ from: '2027-03-10', to: '2027-03-14', seats: 8, left: 5 }],
+    summary: 'Крупнейший рынок товаров повседневного спроса. Помогаем с закупкой, упаковкой и отправкой груза.',
+    plan: ['Прилёт в Ханчжоу, переезд в Иу', 'Рынок Futian: игрушки, декор, аксессуары', 'Рынок: текстиль и товары для дома', 'Консолидация и отправка груза', 'Прогулка по Ханчжоу, вылет'],
+    inc: ['Отель', 'Завтраки', 'Помощник-переводчик на рынке', 'Трансферы'],
+    exc: ['Авиабилеты', 'Виза', 'Карго-доставка'] },
+  { id: 'xa-cd', title: 'Сиань и Чэнду: армия и панды', kind: 'Туристический', format: 'Индивидуальный', cities: 'Сиань, Чэнду', days: 7, price: 1350, glyph: '熊', hue: 120,
+    dates: [{ from: 'flex', to: 'flex', seats: 0, left: 0 }],
+    summary: 'Терракотовая армия, древняя городская стена Сианя, центр больших панд и сычуаньская кухня.',
+    plan: ['Прилёт в Сиань', 'Терракотовая армия', 'Городская стена, Мусульманский квартал', 'Скоростной поезд в Чэнду', 'Центр разведения больших панд', 'Лэшань или гора Цинчэншань — по выбору', 'Вылет'],
+    inc: ['Отели 4*', 'Завтраки', 'Поезд Сиань — Чэнду', 'Входные билеты', 'Гид'],
+    exc: ['Авиабилеты', 'Виза', 'Обеды и ужины'] },
+  { id: 'sh-hz', title: 'Шанхай и Ханчжоу', kind: 'Туристический', format: 'Групповой', cities: 'Шанхай, Ханчжоу', days: 6, price: 1190, glyph: '沪', hue: 210,
+    dates: [{ from: '2027-05-01', to: '2027-05-06', seats: 8, left: 8 }],
+    summary: 'Набережная Вайтань, небоскрёбы Пудуна, озеро Сиху и чайные плантации Лунцзин.',
+    plan: ['Прилёт в Шанхай', 'Вайтань и Пудун', 'Сад Юйюань, старый город', 'Переезд в Ханчжоу, озеро Сиху', 'Чайные плантации Лунцзин', 'Вылет'],
+    inc: ['Отели 4*', 'Завтраки', 'Поезд Шанхай — Ханчжоу', 'Гид'],
+    exc: ['Авиабилеты', 'Виза', 'Личные расходы'] }
+];
+const TOUR = Object.fromEntries(TOURS.map(t => [t.id, t]));
+
+const CAMPS = [
+  { id: 'qingdao', title: 'Языковой лагерь в Циндао', kind: 'Языковой', ages: '10–16 лет', place: 'Циндао, кампус университета', price: 1690, glyph: '青', hue: 195,
+    dates: [{ from: '2027-07-05', to: '2027-07-19', seats: 20, left: 14 }],
+    summary: 'Китайский там, где на нём говорят каждый день: уроки с преподавателями, культура, море и новые друзья.',
+    plan: ['Уроки китайского каждое утро (4 часа)', 'Каллиграфия, чайная церемония, кухня', 'Экскурсии: старый город, пивоваренный квартал, гора Лаошань', 'Пляж и спортивные игры', 'Финальный концерт и сертификаты'],
+    housing: 'Общежитие кампуса, комнаты на 2–3 человека', food: 'Трёхразовое питание', excursions: ['Гора Лаошань', 'Старый город Циндао', 'Океанариум'] },
+  { id: 'bj-summer', title: 'Летний лагерь в Пекине', kind: 'Летний', ages: '14–18 лет', place: 'Пекин, кампус BLCC', price: 1890, glyph: '夏', hue: 352,
+    dates: [{ from: '2027-07-26', to: '2027-08-09', seats: 16, left: 16 }],
+    summary: 'Две недели студенческой жизни в Пекине: занятия в колледже, Великая стена и Запретный город.',
+    plan: ['Китайский язык в колледже', 'Мастер-классы по культуре', 'Великая Китайская стена', 'Запретный город и Летний дворец', 'День студента BLCC'],
+    housing: 'Общежитие колледжа', food: 'Трёхразовое питание', excursions: ['Великая стена', 'Запретный город', 'Летний дворец'] },
+  { id: 'kids-cd', title: 'Детский лагерь в Чэнду', kind: 'Детский', ages: '8–13 лет', place: 'Чэнду', price: 1590, glyph: '童', hue: 120,
+    dates: [{ from: '2027-07-12', to: '2027-07-22', seats: 15, left: 11 }],
+    summary: 'Игровой китайский, кунг-фу, панды и сычуаньская кухня. Вожатые сопровождают детей круглосуточно.',
+    plan: ['Игровые уроки китайского', 'Кунг-фу и тайцзи', 'Центр больших панд', 'Кулинарный мастер-класс', 'Праздник закрытия'],
+    housing: 'Отель-кампус, проживание с вожатыми', food: 'Трёхразовое детское меню', excursions: ['Центр панд', 'Улица Цзиньли', 'Парк Жэньминь'] },
+  { id: 'ind', title: 'Индивидуальный языковой лагерь', kind: 'Индивидуальный', ages: 'от 12 лет', place: 'Пекин, Циндао или Чэнду — на выбор', price: null, glyph: '个', hue: 45,
+    dates: [{ from: 'flex', to: 'flex', seats: 0, left: 0 }],
+    summary: 'Даты, город и программа под вас или вашу семью. Подходит для поездки с родителями.',
+    plan: ['Программа по вашему запросу', 'Индивидуальные уроки китайского', 'Экскурсии по выбору'],
+    housing: 'Отель или апартаменты', food: 'По выбору', excursions: ['По запросу'] }
+];
+const CAMP = Object.fromEntries(CAMPS.map(c => [c.id, c]));
+
+const POSTS = [
+  { id: 'drinks', date: '2026-09-15', tag: 'Культура', title: '10 напитков, которые стоит попробовать в Китае',
+    lead: 'Китай — это не только знаменитый чай. Сохраните подборку для своей поездки.',
+    body: ['Чайная культура Китая гораздо шире, чем зелёный чай. Вот что стоит попробовать:',
+      '珍珠奶茶 (zhēnzhū nǎichá) — молочный чай с тапиокой.', '水果茶 (shuǐguǒ chá) — фруктовый чай.', '芝士茶 (zhīshì chá) — чай с сырной пенкой.',
+      '柠檬茶 (níngméng chá) — освежающий лимонный чай.', '茉莉花茶 (mòlìhuā chá) — ароматный жасминовый чай.', '绿茶 (lǜchá) — классический зелёный чай.',
+      '王老吉 (Wánglǎojí) — традиционный травяной напиток.', '豆浆 (dòujiāng) — соевое молоко, популярное на завтрак.', '椰汁 (yēzhī) — кокосовый напиток.',
+      '瑞幸咖啡 (Ruìxìng kāfēi) — кофе Luckin Coffee.', 'Учитесь в Китае, путешествуйте и познавайте культуру вместе с Dragon Education.'] },
+  { id: 'blcc-day', date: '2026-09-15', tag: 'Студенты', title: 'Один день студента BLCC',
+    lead: 'Каково учиться в Пекинском колледже языка и культуры? Открыт набор на весенний семестр.',
+    body: ['Мы показали обычный день наших студентов в Пекинском колледже языка и культуры (BLCC): занятия, кампус, столовая и вечерний город.',
+      'Колледж принимает студентов с 15–16 лет. Это шанс почувствовать студенческую жизнь в Китае ещё до поступления в университет.',
+      'Сейчас идёт набор на весенний семестр. Напишите нам, чтобы узнать условия и записаться.'] },
+  { id: 'beijing-intake', date: '2026-09-10', tag: 'Набор', title: 'Набор на новый семестр в Пекине',
+    lead: 'Обучение на семестр или год: китайский с преподавателями, HSK и жизнь в Пекине.',
+    body: ['Программа подходит начинающим с нуля, тем, кто хочет повысить уровень, готовится к HSK или планирует продолжить образование в Китае.',
+      'Что ждёт студентов: китайский язык с преподавателями, подготовка к HSK, практика языка в реальной жизни, погружение в культуру и международная студенческая среда.',
+      'Пекин — это не только учёба, но и новые знакомства и возможности.'] },
+  { id: 'hsk-why', date: '2026-07-23', tag: 'HSK', title: 'HSK: почему этот экзамен так важен для поступления',
+    lead: 'HSK подтверждает уровень китайского и часто является главным требованием вузов.',
+    body: ['HSK (Hanyu Shuiping Kaoshi) — международный экзамен по китайскому языку. Его признают университеты по всему Китаю.',
+      'Поступление. Большинство вузов требуют сертификат HSK для программ на китайском языке. Чем выше уровень, тем больше выбор университетов и специальностей.',
+      'Стипендии. Для многих государственных и университетских грантов HSK — обязательное условие. Высокий балл повышает шансы на бесплатное обучение.',
+      'Уровень языка. Сертификат показывает, что вы сможете понимать лекции и комфортно учиться на китайском.',
+      'Чем раньше вы начнёте готовиться, тем легче сдать экзамен, поступить и получить грант.'] },
+  { id: 'why-china', date: '2026-06-05', tag: 'Поступление', title: '8 причин учиться в Китае',
+    lead: 'Международный диплом, гранты и доступная стоимость жизни.',
+    body: ['Качественное и современное образование.', 'Международный диплом и востребованные специальности.', 'Китайский и английский одновременно.',
+      'Знакомство с культурой и людьми из разных стран.', 'Доступная стоимость обучения и проживания по сравнению со многими странами.', 'Большое количество грантов и стипендий.',
+      'Перспективы международной карьеры и стажировок.', 'Полезные связи и международное окружение.'] },
+  { id: 'dragon-tour', date: '2026-06-08', tag: 'Туры', title: 'DRAGON tour: бизнес- и туристические поездки',
+    lead: 'Организуем поездки под ваши цели — от планирования маршрута до поддержки в пути.',
+    body: ['Индивидуальный подход, учёт всех пожеланий, лучшие места и выгодные маршруты.', 'Организуем бизнес-поездки и туристические туры с полным сопровождением.',
+      'Направления: Пекин, Гуанчжоу, Шанхай, Циндао, Гуйлинь, Куньмин, Чэнду, Сиань.'] }
+];
+const POST = Object.fromEntries(POSTS.map(p => [p.id, p]));
+
+const FAQ = [
+  ['Можно ли поступить в Китай без знания китайского?', 'Да. Есть подготовительный год (Foundation) и языковые курсы, где китайский изучают с нуля, а также программы на английском языке.'],
+  ['Какие есть гранты и стипендии?', 'Стипендия правительства Китая (CSC), стипендии университетов и провинций, стипендия для изучающих китайский язык. В приоритете — программы с бесплатным обучением и проживанием.'],
+  ['Сколько стоит обучение в Китае?', 'Зависит от города, вуза и программы. Стоимость в каталоге ориентировочная — точную сумму и варианты стипендий подберём на консультации.'],
+  ['Какой уровень HSK нужен для поступления?', 'Для бакалавриата на китайском обычно HSK 4, для магистратуры — HSK 5. Для программ на английском нужен IELTS, обычно от 6.0.'],
+  ['С какого возраста можно учиться в Китае?', 'Языковые колледжи принимают с 15–16 лет, лагеря — детей с 8 лет. Онлайн-курсы — для любого возраста.'],
+  ['Вы помогаете с визой и переездом?', 'Да. Сопровождаем на каждом этапе: подбор вуза, документы, заявки, виза, переезд и поддержка во время учёбы.'],
+  ['Кто преподаёт на онлайн-курсах?', 'Преподаватели — носители китайского языка.']
+];
+
+/* ===== Истории (как в Instagram) =====
+   Типы слайдов:
+   {type:'card', glyph, hue, title, text, cta:{label, href}} — оформленная карточка
+   {type:'photo', url:'фото.jpg', text:'подпись'} — своё фото (положите файл рядом с index.html)
+   {type:'youtube', url:'https://youtu.be/…', text:'подпись'} — видео с YouTube
+   Сейчас это прототип: карточки сделаны по вашим постам. Замените их своими фото и видео. */
+const STORY_PHOTOS = {"unis": {"id": "1562774053-701939374585", "alt": "Университетский кампус", "source": "https://unsplash.com/photos/U0dBV_QeiYk", "author": "Michael Marsh", "url": "https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=240&h=240&q=85"}, "reviews": {"id": "1758270704840-0ac001215b55", "alt": "Студенты общаются после занятий", "source": "https://unsplash.com/photos/students-talking-in-a-lecture-hall-during-class-9faEJgSvmjc", "author": "Vitaly Gariev", "url": "https://images.unsplash.com/photo-1758270704840-0ac001215b55?auto=format&fit=crop&w=240&h=240&q=85"}, "students": {"id": "1523240795612-9a054b0db644", "alt": "Студенты занимаются вместе", "source": "https://images.unsplash.com/photo-1523240795612-9a054b0db644", "author": "Priscilla Du Preez", "url": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=240&h=240&q=85"}, "intake": {"id": "1748376976286-0b9cdc0bef22", "alt": "Выпускницы университета", "source": "https://unsplash.com/photos/two-women-pose-for-a-graduation-photo-YOwIHYEorSE", "author": "Nathan B", "url": "https://images.unsplash.com/photo-1748376976286-0b9cdc0bef22?auto=format&fit=crop&w=240&h=240&q=85"}, "unitime": {"id": "1741699428220-65f37f3fbbcb", "alt": "Занятия в университетской библиотеке", "source": "https://unsplash.com/photos/student-studies-at-a-library-with-books-klbApl9mxr0", "author": "Zoshua Colah", "url": "https://images.unsplash.com/photo-1741699428220-65f37f3fbbcb?auto=format&fit=crop&w=240&h=240&q=85"}, "chinese": {"id": "1546638008-efbe0b62c730", "alt": "Занятие китайской каллиграфией", "source": "https://unsplash.com/photos/person-doing-kanji-calligraphy-zHwWnUDMizo", "author": "Marco Zuppone", "url": "https://images.unsplash.com/photo-1546638008-efbe0b62c730?auto=format&fit=crop&w=240&h=240&q=85"}};
+
+const STORIES = [
+  { key: 'unis', label: 'Вузы', cover: '学', items: [
+    { type: 'card', glyph: '华', hue: 352, title: 'Пекинский колледж языка и культуры', text: 'BLCC · Пекин. Семестр или год китайского. Принимаем с 15–16 лет.', cta: { label: 'Подробнее', href: '#university-blcc' } },
+    { type: 'card', glyph: '语', hue: 18, title: 'BLCU — Пекинский университет языка', text: 'Языковой год, Foundation и бакалавриат по китайской филологии.', cta: { label: 'Подробнее', href: '#university-blcu' } },
+    { type: 'card', glyph: '复', hue: 210, title: 'Фудань · Шанхай', text: 'MBA, экономика и медицина в деловой столице Китая.', cta: { label: 'Подробнее', href: '#university-fudan' } },
+    { type: 'card', glyph: '海', hue: 195, title: 'Океанологический университет · Циндао', text: 'Языковые курсы и магистратура у моря.', cta: { label: 'Все университеты', href: '#universities' } } ] },
+  { key: 'reviews', label: 'Отзывы', cover: '评', items: [
+    { type: 'card', glyph: '评', hue: 40, title: 'Отзывы наших студентов', text: 'Здесь будут видео-отзывы студентов и родителей. Пока смотрите их в нашем Instagram.', cta: { label: 'Открыть Instagram', href: 'https://www.instagram.com/dragonn_education/' } },
+    { type: 'card', glyph: '谢', hue: 10, title: 'Место для видео-отзыва', text: 'Пришлите ссылку на YouTube — и отзыв появится здесь.', cta: { label: 'Оставить заявку', href: '#apply' } } ] },
+  { key: 'students', label: 'Наши студенты', cover: '生', items: [
+    { type: 'photo', url: 'HERO', text: 'Учись в Китае. Путешествуй. Познавай культуру.' },
+    { type: 'card', glyph: '京', hue: 352, title: 'Наши студенты в Пекине', text: 'Учатся в Пекинском колледже языка и культуры: занятия, кампус и жизнь в столице.', cta: { label: 'Программа в Пекине', href: '#program-blcc-sem' } },
+    { type: 'card', glyph: '友', hue: 160, title: 'Международная среда', text: 'Новые друзья со всего мира, практика языка каждый день.', cta: null } ] },
+  { key: 'intake', label: 'Набор!', cover: '招', items: [
+    { type: 'card', glyph: '招', hue: 352, title: 'Набор на весенний семестр', text: 'Пекин · семестр или год. С нуля, для повышения уровня, подготовка к HSK.', cta: { label: 'Подать заявку', href: '#apply' } },
+    { type: 'card', glyph: '奖', hue: 45, title: 'Гранты и стипендии', text: 'В приоритете — программы с бесплатным обучением и проживанием.', cta: { label: 'Программы', href: '#study' } },
+    { type: 'card', glyph: '营', hue: 195, title: 'Лагерь в Циндао', text: 'Китайский там, где на нём говорят каждый день. Количество мест ограничено.', cta: { label: 'Лагеря', href: '#camps' } } ] },
+  { key: 'unitime', label: 'UniTime', cover: '校', items: [
+    { type: 'card', glyph: '校', hue: 280, title: 'Один день студента BLCC', text: 'Утро — занятия китайским. Днём — кампус и столовая. Вечером — Пекин.', cta: { label: 'Читать в блоге', href: '#post-blcc-day' } },
+    { type: 'card', glyph: '茶', hue: 160, title: '10 напитков Китая', text: 'Чай с тапиокой, жасминовый чай, соевое молоко и Luckin Coffee.', cta: { label: 'Читать', href: '#post-drinks' } } ] },
+  { key: 'chinese', label: 'Курсы языка', cover: '汉语', items: [
+    { type: 'card', glyph: '汉', hue: 352, title: 'Китайский онлайн', text: 'Уроки с преподавателями — носителями языка. С нуля и до HSK 6.', cta: { label: 'Курсы', href: '#program-cn-zero' } },
+    { type: 'card', glyph: '考', hue: 40, title: 'Зачем нужен HSK', text: 'HSK — главное требование вузов и стипендий. Начните готовиться заранее.', cta: { label: 'Подготовка к HSK', href: '#program-hsk' } } ] }
+];
+
+/* Illustrative photographs inside every story. Keep existing copy and actions. */
+const STORY_EXTRA_PHOTOS = {"beijing": {"id": "1577271783546-254bf0670904", "alt": "Архитектура Пекина", "author": "Bao Menglong", "source": "https://unsplash.com/photos/pathway-leading-to-an-archway-G0Q1KRchc3U"}, "shanghai": {"id": "1752662742861-fb76c71576d7", "alt": "Панорама Шанхая", "author": "Nicolas Jehly", "source": "https://unsplash.com/photos/shanghai-skyline-on-a-cloudy-day-0p37Ch2LYQc"}, "qingdao": {"id": "1689143626749-3c2ab3ebca45", "alt": "Побережье Циндао", "author": "Clark Ma", "source": "https://unsplash.com/photos/a-view-of-a-city-and-a-body-of-water-QgryO77mgHs"}, "tea": {"id": "1711380586172-5c6432238071", "alt": "Китайский чай на деревянном столе", "author": "Jason Yuen", "source": "https://unsplash.com/photos/a-cup-of-tea-sits-on-a-table-lQwzl0BGO7Y"}};
+const STORY_SLIDE_PHOTOS = {
+  unis: ['beijing', 'chinese', 'shanghai', 'qingdao'],
+  reviews: ['reviews', 'students'],
+  students: ['students', 'beijing', 'reviews'],
+  intake: ['beijing', 'intake', 'qingdao'],
+  unitime: ['unitime', 'tea'],
+  chinese: ['chinese', 'unitime']
+};
+STORIES.forEach(st => st.items.forEach((it, i) => {
+  if (it.type === 'youtube') return;
+  const key = STORY_SLIDE_PHOTOS[st.key]?.[i] || st.key;
+  const photo = STORY_EXTRA_PHOTOS[key] || STORY_PHOTOS[key];
+  if (!photo) return;
+  it.type = 'photo';
+  it.url = 'https://images.unsplash.com/photo-' + photo.id + '?auto=format&fit=crop&w=1080&h=1700&q=85';
+  it.alt = photo.alt;
+  it.illustrative = true;
+}));
+
+/* ===== Site ===== */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const MON = ['янв', 'фев', 'мар', 'апр', 'мая', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'];
+const fmtD = iso => { if (!iso || iso === 'flex') return ''; const d = new Date(iso + (iso.length === 10 ? 'T00:00:00' : '')); return d.getDate() + ' ' + MON[d.getMonth()] + ' ' + d.getFullYear(); };
+const fmtRange = (a, b) => a === 'flex' ? 'Даты — по вашему запросу' : fmtD(a) + ' — ' + fmtD(b);
+const money = p => p == null ? 'по запросу' : '≈ $' + p.toLocaleString('ru-RU');
+const waLink = (text, raw = CONTACTS.waKzRaw) => 'https://wa.me/' + raw + (text ? '?text=' + encodeURIComponent(text) : '');
+const ICON = {
+  arrow: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
+  wa: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.5-.3Z"/></svg>',
+  ig: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>',
+  th: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M16.5 11.3c-.3-2.4-1.9-3.7-4.3-3.7-2.1 0-3.6 1.2-3.9 2.8M15.9 11.5c-3.4-.6-6.6.2-6.4 2.6.2 2.2 3.7 2.4 5 .8 1-1.2 1.2-3.1 1.2-4.6"/><path d="M19 7.5C17.7 4.8 15.3 3 12 3 7 3 4 6.5 4 12s3 9 8 9c3.6 0 6.4-1.8 7.2-4.7"/></svg>'
+};
+const DEMO = '<div class="demo-note">Стоимость, даты, дедлайны и количество мест в каталоге — ориентировочные. Точные условия уточняйте у менеджера.</div>';
+
+function cover(glyph, hue, lbl, lbl2) {
+  const bg = `linear-gradient(135deg,${hue % 2 ? '#842d45' : '#22486f'} 0%,#142b4c 55%,#08182e 100%)`;
+  return `<div class="cover" style="background:${bg}" aria-hidden="true"><span class="g">${esc(glyph)}</span>${lbl ? `<span class="lbl">${esc(lbl)}</span>` : ''}${lbl2 ? `<span class="lbl lbl2">${esc(lbl2)}</span>` : ''}</div>`;
+}
+function toast(msg) {
+  const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg; document.body.appendChild(t);
+  setTimeout(() => t.remove(), 2600);
+}
+function copyText(txt, btn) {
+  const done = () => { if (btn) btn.textContent = 'Скопировано'; };
+  try { navigator.clipboard.writeText(txt).then(done, () => toast(txt)); } catch (e) { toast(txt); }
+}
+
+/* ---------- Router ---------- */
+const S = {
+  study: { q: '', country: '', city: '', level: '', type: '', price: '' },
+  unis: { q: '', city: '', level: '', price: '' },
+  tours: { kind: '', format: '' },
+  camps: { kind: '' },
+  apply: null, menuOpen: false
+};
+function go(token) { if (location.hash.slice(1) === token) render(); else location.hash = token; }
+function route() {
+  const t = decodeURIComponent(location.hash.slice(1)) || 'home';
+  const i = t.indexOf('-');
+  return i > 0 ? { page: t.slice(0, i), id: t.slice(i + 1) } : { page: t, id: null };
+}
+const NAV = [['about', 'О нас'], ['study', 'Обучение'], ['universities', 'Университеты'], ['tours', 'Туры'], ['camps', 'Лагеря'], ['blog', 'Блог'], ['faq', 'FAQ'], ['contacts', 'Контакты']];
+
+function header(page) {
+  const crm = '';
+  const links = NAV.map(([k, v]) => `<a href="#${k}" class="${page === k || (page === 'program' && k === 'study') || (page === 'university' && k === 'universities') || (page === 'tour' && k === 'tours') || (page === 'camp' && k === 'camps') || (page === 'post' && k === 'blog') ? 'on' : ''}">${v}</a>`).join('');
+  return `<header class="top"><div class="wrap nav">
+    <a class="brand" href="#home" aria-label="Dragon Education — главная"><span class="brand-mark"><img src="${LOGO}" alt="Логотип Dragon Education"></span><div><b>DRAGON</b><small>EDUCATION</small></div></a>
+    <nav class="menu" aria-label="Разделы">${links}${crm}</nav>
+    <a class="btn btn-red btn-head" href="#apply" data-apply>Подать заявку</a>
+    <button class="burger" id="burger" aria-label="Меню" aria-expanded="${S.menuOpen}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div><div class="wrap mnav ${S.menuOpen ? 'open' : ''}">${links}${crm}<a href="#apply" style="color:var(--blush)">Подать заявку</a></div></header>`;
+}
+function footer() {
+  return `<footer><div class="wrap">
+    <div class="fgrid">
+      <div><a class="brand" href="#home"><span class="brand-mark"><img src="${LOGO}" alt=""></span><div><b>DRAGON</b><small>EDUCATION</small></div></a>
+        <p>Обучение в Китае, онлайн-школа китайского языка, туры и лагеря. Твой мост в большой Китай.</p>
+        <div class="socials"><a href="${CONTACTS.instagram}" target="_blank" rel="noopener">${ICON.ig}Instagram</a><a href="${CONTACTS.threads}" target="_blank" rel="noopener">${ICON.th}Threads</a><a href="${waLink()}" target="_blank" rel="noopener">${ICON.wa}WhatsApp</a></div></div>
+      <div><h4>Обучение</h4><a href="#study">Программы</a><a href="#universities">Университеты</a><a href="#study" data-type="exams">HSK, BCT, YCT, IELTS, CSCA</a><a href="#study" data-type="bachelor">Бакалавриат</a><a href="#study" data-type="master">Магистратура</a></div>
+      <div><h4>Поездки</h4><a href="#tours">Туры</a><a href="#camps">Лагеря</a><a href="#blog">Блог</a></div>
+      <div><h4>Компания</h4><a href="#about">О компании</a><a href="#faq">FAQ</a><a href="#contacts">Контакты</a><a href="#privacy">Политика конфиденциальности</a><a href="#terms">Пользовательские условия</a></div>
+    </div>
+    <div class="copy-r"><span>© 2026 Dragon Education</span><span>WhatsApp: ${CONTACTS.waKz} · ${CONTACTS.waCn}</span></div>
+  </div></footer>`;
+}
+function phead(crumb, title, sub, extra = '') {
+  return `<section class="phead"><div class="wrap"><div class="crumbs"><a href="#home">Главная</a><span>/</span>${crumb}</div><h1>${title}</h1>${sub ? `<p>${sub}</p>` : ''}${extra}</div></section>`;
+}
+function ctaBox(title = 'Начните свой путь в Китай уже сегодня', sub = 'Определим уровень языка, подберём вуз, программу и стипендию под ваш бюджет.') {
+  return `<section class="sec tight"><div class="wrap"><div class="cta-box"><div><span class="eyebrow">КОНСУЛЬТАЦИЯ</span><h2>${title}</h2><p>${sub}</p></div>
+    <div class="ctas"><a class="btn btn-red" href="#apply" data-apply>Подать заявку ${ICON.arrow}</a><a class="btn btn-ghost" href="${waLink('Здравствуйте! Хочу получить консультацию Dragon Education.')}" target="_blank" rel="noopener">${ICON.wa} Получить консультацию</a></div></div></div></section>`;
+}
+
+/* ---------- Pages ---------- */
+function pHome() {
+  const dirs = [
+    ['Языковые курсы', 'Онлайн', 'Китайский с нуля и до HSK 6 с преподавателями — носителями языка.', '汉', 'study', 'courses'],
+    ['HSK · BCT · YCT · IELTS · CSCA', 'Экзамены', 'Подготовка к экзаменам, которые нужны для поступления и стипендий.', '考', 'study', 'exams'],
+    ['Учёба в вузах Китая', 'Foundation → PhD', 'Подготовительный год, бакалавриат, магистратура и докторантура. Гранты и стипендии.', '学', 'universities', ''],
+    ['Туры и лагеря', 'Поездки', 'Бизнес-, шопинг- и выставочные туры. Языковые и детские лагеря.', '游', 'tours', '']
+  ];
+  const advs = [
+    ['师', 'Носители языка', 'Китайский преподают носители языка — правильное произношение с первого урока.'],
+    ['奖', 'Гранты и стипендии', 'В приоритете — программы с бесплатным обучением и проживанием.'],
+    ['伴', 'Сопровождение до приглашения', 'Ведём вас от подбора программы до приглашения из вуза, визы и переезда.'],
+    ['英', 'Китайский и английский', 'Программы на китайском и на английском языке — в ТОП-вузах Китая.'],
+    ['钱', 'Под ваш бюджет', 'Подберём вариант от бесплатных грантов до платных программ.'],
+    ['家', 'Команда в Китае', 'Наши люди в Китае помогают с адаптацией и поддерживают во время учёбы.']
+  ];
+  return `
+  <section class="hero">
+    <div class="hero-bg" style="background-image:url('${HERO}')" role="img" aria-label="Панорама Китая: Великая Китайская стена, храмы и города"></div>
+    <div class="wrap hero-in"><div class="hero-copy">
+      <span class="pill">Обучение в Китае · онлайн-школа китайского языка</span>
+      <h1>Новый язык,<em>новые горизонты!</em></h1>
+      <p class="lead">Dragon Education помогает поступить и учиться в Китае: университеты, гранты, языковые курсы, подготовка к HSK, туры и лагеря.</p>
+      <div class="feats">
+        <div class="feat"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5L2 9Z"/><path d="M6 11v5c2 2 10 2 12 0v-5"/></svg></i>ТОП-вузы<br>и стипендии</div>
+        <div class="feat"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></i>Китайский онлайн<br>с носителями</div>
+        <div class="feat"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/><circle cx="12" cy="12" r="9"/></svg></i>Туры<br>и лагеря</div>
+      </div>
+      <div class="ctas"><a class="btn btn-red" href="#apply" data-apply>Подать заявку ${ICON.arrow}</a><a class="btn btn-ghost" href="${waLink('Здравствуйте! Хочу получить консультацию Dragon Education.')}" target="_blank" rel="noopener">Получить консультацию</a></div>
+      <p class="note">Консультация и подбор программы — под ваш бюджет.</p>
+    </div></div>
+    <div class="hero-art-label" aria-hidden="true"><b>中国</b><span>Откройте свой Китай<small>Учёба · Путешествия · Возможности</small></span></div>
+  </section>
+
+  <section class="sec"><div class="wrap about-strip">
+    <div><span class="eyebrow">О компании</span><h2>Ваш мост в большой Китай</h2>
+      <p>Dragon Education — команда, которая помогает поступить и учиться в Китае. Наши преподаватели — носители языка, а кураторы в Казахстане и Китае сопровождают студентов на каждом этапе.</p>
+      <ul class="checks"><li>Гранты, программы колледжа, бакалавриат, магистратура и докторантура</li><li>Программы на английском и китайском языках в ТОП-вузах Китая</li><li>Стипендии с бесплатным обучением и проживанием</li><li>Полное сопровождение до получения приглашения от вуза</li></ul>
+      <div class="ctas" style="margin-top:26px"><a class="more" href="#about">Подробнее о нас →</a></div></div>
+    <div class="quote-card"><span class="big" aria-hidden="true">龙</span><h3>Учись в Китае. Путешествуй. Познавай культуру.</h3><p>Создавай своё будущее вместе с Dragon Education.</p></div>
+  </div></section>
+
+  <section class="sec tight"><div class="wrap">
+    <div class="sec-head"><div><span class="eyebrow">Направления</span><h2>С чего начнём ваш путь?</h2></div><a class="more" href="#study">Все программы →</a></div>
+    <div class="dirs">${dirs.map(d => `<a class="dir" href="#${d[4]}" ${d[5] ? `data-type="${d[5]}"` : ''}><span class="tag">${d[1]}</span><h3>${d[0]}</h3><p>${d[2]}</p><span class="more">Подробнее →</span><span class="han" aria-hidden="true">${d[3]}</span></a>`).join('')}</div>
+  </div></section>
+
+  <section class="sec band-teal"><div class="wrap">
+    <div class="sec-head"><div><span class="eyebrow">Преимущества</span><h2>Почему выбирают Dragon Education</h2></div></div>
+    <div class="advs">${advs.map(a => `<div class="adv"><b aria-hidden="true">${a[0]}</b><h3>${a[1]}</h3><p>${a[2]}</p></div>`).join('')}</div>
+  </div></section>
+
+  <section class="sec"><div class="wrap">
+    <div class="sec-head"><div><span class="eyebrow">Поступление</span><h2>Как мы ведём вас до зачисления</h2></div><p>Подбор университета, документы, заявки, виза, переезд и поддержка во время учёбы.</p></div>
+    <div class="process">${[['Консультация', 'Разбираем цели, уровень языка, сроки и бюджет.'], ['Подбор вуза', 'Предлагаем университеты, программы и стипендии.'], ['Язык и документы', 'Готовим к HSK или IELTS, собираем пакет документов.'], ['Подача заявки', 'Подаём документы в вуз и на стипендию.'], ['Виза и переезд', 'Помогаем с визой, встречаем и поддерживаем в Китае.']].map((p, i) => `<div class="proc"><div class="num"><b>${i + 1}</b></div><h3>${p[0]}</h3><p>${p[1]}</p></div>`).join('')}</div>
+  </div></section>
+
+  <section class="sec band"><div class="wrap">
+    <div class="sec-head"><div><span class="eyebrow">Университеты</span><h2>Вузы в нашем каталоге</h2></div><a class="more" href="#universities">Каталог университетов →</a></div>
+    <div class="partners">${UNIS.map(u => `<a class="partner" href="#university-${u.id}"><b aria-hidden="true">${u.glyph}</b><span>${esc(u.name.replace(/ \(.+\)/, ''))}</span></a>`).join('')}</div>
+  </div></section>
+
+  <section class="sec"><div class="wrap">
+    <div class="sec-head" style="justify-content:center;text-align:center"><div><span class="eyebrow">Отзывы · Instagram</span><h2>Отзывы и истории наших студентов</h2></div></div>
+    <div class="stories">${STORIES.map(st => `<button class="story" type="button" data-story="${st.key}"><div class="ring"><div><b aria-hidden="true" class="${st.cover.length > 1 ? 'two' : ''}">${st.cover}</b><img src="${esc(STORY_PHOTOS[st.key].url)}" alt="${esc(STORY_PHOTOS[st.key].alt)}" loading="lazy" decoding="async" width="100" height="100" onerror="this.hidden=true"></div></div><span>${st.label}</span></button>`).join('')}</div>
+    <p class="note" style="text-align:center;margin-top:22px">Нажмите на кружок, чтобы открыть истории. Фото используются как иллюстрации.</p>
+  </div></section>
+
+  <section class="sec tight"><div class="wrap faq-grid">
+    <div><span class="eyebrow">FAQ</span><h2 style="font-size:clamp(32px,4vw,48px);margin-top:14px">Часто спрашивают</h2><a class="more" href="#faq" style="margin-top:18px">Все вопросы →</a></div>
+    <div class="faq">${FAQ.slice(0, 4).map((f, i) => `<details ${i ? '' : 'open'}><summary>${f[0]}</summary><p>${f[1]}</p></details>`).join('')}</div>
+  </div></section>
+
+  ${contactsBlock()}
+  ${ctaBox()}`;
+}
+
+function contactsBlock() {
+  return `<section class="sec tight"><div class="wrap">
+    <div class="sec-head"><div><span class="eyebrow">Контакты</span><h2>Свяжитесь с нами</h2></div></div>
+    <div class="contact-grid">
+      <div class="ccard"><small>WhatsApp · Казахстан</small><b id="c1">${CONTACTS.waKz}</b><div class="row"><a class="btn btn-red btn-sm" href="${waLink()}" target="_blank" rel="noopener">${ICON.wa} Написать</a><button class="copybtn" data-copy="+${CONTACTS.waKzRaw}">Скопировать</button></div></div>
+      <div class="ccard"><small>WhatsApp / WeChat · Китай</small><b>${CONTACTS.waCn}</b><div class="row"><a class="btn btn-ghost btn-sm" href="${waLink('', CONTACTS.waCnRaw)}" target="_blank" rel="noopener">${ICON.wa} Написать</a><button class="copybtn" data-copy="+${CONTACTS.waCnRaw}">Скопировать</button></div></div>
+      <div class="ccard"><small>Телефон · туры</small><b>${CONTACTS.phone2}</b><div class="row"><a class="btn btn-ghost btn-sm" href="${CONTACTS.instagram}" target="_blank" rel="noopener">${ICON.ig} @dragonn_education</a><button class="copybtn" data-copy="+77771868871">Скопировать</button></div></div>
+    </div></div></section>`;
+}
+
+/* --- Study --- */
+function priceBand(p, band) {
+  if (!band) return true;
+  if (band === 'req') return p == null;
+  if (p == null) return false;
+  if (band === 'lt3') return p < 3000;
+  if (band === '3to5') return p >= 3000 && p <= 5000;
+  return p > 5000;
+}
+const PRICE_OPTS = [['', 'Любая'], ['lt3', 'до $3 000'], ['3to5', '$3 000 – 5 000'], ['gt5', 'от $5 000'], ['req', 'По запросу']];
+const opt = (arr, v) => arr.map(([k, t]) => `<option value="${esc(k)}" ${k === v ? 'selected' : ''}>${esc(t)}</option>`).join('');
+const uniq = a => [...new Set(a)].sort((x, y) => x.localeCompare(y, 'ru'));
+
+function programCard(p) {
+  const u = p.uni ? UNI[p.uni] : null;
+  return `<article class="card">${cover(p.glyph, p.hue, PTYPES[p.type], p.city)}
+    <div class="body"><h3><a href="#program-${p.id}">${esc(p.title)}</a></h3>
+      <div class="sub">${u ? esc(u.name) : 'Онлайн-школа Dragon Education'}</div>
+      <div class="meta"><span class="chip">${esc(p.duration)}</span><span class="chip">${esc(p.lang)}</span><span class="chip gold">${esc(LEVELS[p.level])}</span>${p.sch && p.sch !== '—' ? '<span class="chip red">Стипендия</span>' : ''}</div>
+      <div class="desc">${esc(p.desc)}</div>
+      <div class="foot"><span class="price">${money(p.price)}${p.price != null ? ' <small>/ год</small>' : ''}</span><a class="btn btn-ghost btn-sm" href="#program-${p.id}">Подробнее</a></div>
+    </div></article>`;
+}
+function pStudy() {
+  const f = S.study;
+  const list = PROGRAMS.filter(p => (!f.country || p.country === f.country) && (!f.city || p.city === f.city) && (!f.type || p.type === f.type) && (!f.level || p.level === f.level || p.level === 'any') && priceBand(p.price, f.price) &&
+    (!f.q || (p.title + ' ' + p.desc + ' ' + (p.uni ? UNI[p.uni].name : '')).toLowerCase().includes(f.q.toLowerCase())));
+  return phead('<span>Обучение</span>', 'Программы обучения', 'Языковые курсы, экзамены HSK, BCT, YCT, IELTS и CSCA, Foundation, бакалавриат, магистратура и докторантура.', DEMO) + `
+  <section class="sec" style="padding-top:40px"><div class="wrap catalog">
+    <aside class="filters" aria-label="Фильтры">
+      <h4>Фильтры</h4>
+      <label for="sf-q">Поиск<input id="sf-q" data-f="study.q" value="${esc(f.q)}" placeholder="HSK, MBA, Пекин…"></label>
+      <label for="sf-type">Тип программы<select id="sf-type" data-f="study.type">${opt([['', 'Все'], ...Object.entries(PTYPES)], f.type)}</select></label>
+      <label for="sf-country">Страна<select id="sf-country" data-f="study.country">${opt([['', 'Все'], ['Китай', 'Китай'], ['Онлайн', 'Онлайн']], f.country)}</select></label>
+      <label for="sf-city">Город<select id="sf-city" data-f="study.city">${opt([['', 'Все'], ...uniq(PROGRAMS.map(p => p.city)).map(c => [c, c])], f.city)}</select></label>
+      <label for="sf-level">Ваш уровень<select id="sf-level" data-f="study.level">${opt([['', 'Любой'], ['zero', LEVELS.zero], ['basic', LEVELS.basic], ['mid', LEVELS.mid], ['adv', LEVELS.adv]], f.level)}</select></label>
+      <label for="sf-price">Стоимость в год<select id="sf-price" data-f="study.price">${opt(PRICE_OPTS, f.price)}</select></label>
+      <button class="btn btn-ghost btn-sm" data-reset="study">Сбросить</button>
+    </aside>
+    <div><div class="res-bar"><span>Найдено программ: <b style="color:var(--cream)">${list.length}</b></span><a class="more" href="#universities">Каталог университетов →</a></div>
+      ${list.length ? `<div class="cards two">${list.map(programCard).join('')}</div>` : `<div class="empty"><b>Ничего не найдено</b>Измените фильтры или напишите нам — подберём программу вручную.</div>`}
+    </div>
+  </div></section>${ctaBox('Не нашли подходящую программу?', 'Расскажите о целях и бюджете — менеджер подберёт варианты и стипендии.')}`;
+}
+function pProgram(id) {
+  const p = PROGRAM[id]; if (!p) return notFound();
+  const u = p.uni ? UNI[p.uni] : null;
+  return phead(`<a href="#study">Обучение</a><span>/</span><span>${esc(p.title)}</span>`, esc(p.title), esc(p.desc)) + `
+  <section class="sec" style="padding-top:40px"><div class="wrap detail">
+    <div class="main">${cover(p.glyph, p.hue, PTYPES[p.type], p.city)}
+      <div><h2>О программе</h2><p style="color:var(--soft)">${esc(p.desc)}</p></div>
+      <div class="cols2"><div><h2>Требования</h2><ul class="lst">${p.req.map(r => `<li>${esc(r)}</li>`).join('')}</ul></div>
+        <div><h2>Стипендия и проживание</h2><ul class="lst"><li>${esc(p.sch)}</li><li>${esc(p.housing)}</li></ul></div></div>
+      ${u ? `<div><h2>Университет</h2><a class="card" href="#university-${u.id}" style="text-decoration:none;flex-direction:row;align-items:center;padding:16px"><b style="font:900 42px/1 var(--f-han);color:var(--gold-2)">${u.glyph}</b><div><h3 style="font-size:22px">${esc(u.name)}</h3><div class="sub">${esc(u.cn)} · ${esc(u.city)}</div></div></a></div>` : ''}
+    </div>
+    <aside class="side">
+      <dl class="facts"><div><dt>Тип</dt><dd>${PTYPES[p.type]}</dd></div><div><dt>Город</dt><dd>${esc(p.city)}</dd></div><div><dt>Университет</dt><dd>${u ? esc(u.name.replace(/ \(.+\)/, '')) : 'Dragon Education'}</dd></div><div><dt>Срок</dt><dd>${esc(p.duration)}</dd></div><div><dt>Язык</dt><dd>${esc(p.lang)}</dd></div><div><dt>Уровень</dt><dd>${LEVELS[p.level]}</dd></div><div><dt>Дедлайн</dt><dd>${esc(p.deadline)}</dd></div></dl>
+      <div class="price">${money(p.price)}${p.price != null ? ' <small>/ год обучения</small>' : ''}</div>
+      <a class="btn btn-red" href="#apply" data-apply data-dir="${p.type}" data-target="${esc(p.title + (u ? ' — ' + u.name : ''))}" data-page="Программа: ${esc(p.title)}">Подать заявку ${ICON.arrow}</a>
+      <a class="btn btn-ghost" href="${waLink('Здравствуйте! Интересует программа: ' + p.title)}" target="_blank" rel="noopener">${ICON.wa} Задать вопрос</a>
+      <p class="note">Цена и дедлайн ориентировочные — уточняйте у менеджера.</p>
+    </aside>
+  </div></section>`;
+}
+
+/* --- Universities --- */
+function pUnis() {
+  const f = S.unis;
+  const list = UNIS.filter(u => (!f.city || u.city === f.city) && (!f.level || u.levels.includes(f.level)) && priceBand(u.from, f.price) &&
+    (!f.q || (u.name + ' ' + u.cn + ' ' + u.city + ' ' + u.about).toLowerCase().includes(f.q.toLowerCase())));
+  return phead('<span>Университеты</span>', 'Каталог университетов', 'Ведущие вузы Китая: программы, требования, стоимость и стипендии.', DEMO) + `
+  <section class="sec" style="padding-top:40px"><div class="wrap catalog">
+    <aside class="filters" aria-label="Фильтры">
+      <h4>Поиск и фильтры</h4>
+      <label for="uf-q">Название или город<input id="uf-q" data-f="unis.q" value="${esc(f.q)}" placeholder="Например, Пекин"></label>
+      <label for="uf-city">Город<select id="uf-city" data-f="unis.city">${opt([['', 'Все'], ...uniq(UNIS.map(u => u.city)).map(c => [c, c])], f.city)}</select></label>
+      <label for="uf-level">Уровень обучения<select id="uf-level" data-f="unis.level">${opt([['', 'Все'], ...['Языковые курсы', 'Foundation', 'Бакалавриат', 'Магистратура', 'Докторантура'].map(x => [x, x])], f.level)}</select></label>
+      <label for="uf-price">Стоимость в год<select id="uf-price" data-f="unis.price">${opt(PRICE_OPTS.slice(0, 4), f.price)}</select></label>
+      <button class="btn btn-ghost btn-sm" data-reset="unis">Сбросить</button>
+    </aside>
+    <div><div class="res-bar"><span>Университетов: <b style="color:var(--cream)">${list.length}</b></span></div>
+      ${list.length ? `<div class="cards two">${list.map(u => `<article class="card">${cover(u.glyph, u.hue, u.type, u.city)}
+        <div class="body"><h3><a href="#university-${u.id}">${esc(u.name)}</a></h3><div class="sub">${esc(u.cn)} · ${esc(u.city)}</div>
+        <div class="meta">${u.levels.map(l => `<span class="chip">${esc(l)}</span>`).join('')}</div>
+        <div class="desc">${esc(u.about)}</div>
+        <div class="foot"><span class="price"><small>от</small> ${money(u.from)} <small>/ год</small></span><a class="btn btn-ghost btn-sm" href="#university-${u.id}">Подробнее</a></div></div></article>`).join('')}</div>` : `<div class="empty"><b>Ничего не найдено</b>Попробуйте другой город или уровень.</div>`}
+    </div></div></section>`;
+}
+function pUni(id) {
+  const u = UNI[id]; if (!u) return notFound();
+  const progs = PROGRAMS.filter(p => p.uni === u.id);
+  return phead(`<a href="#universities">Университеты</a><span>/</span><span>${esc(u.name)}</span>`, esc(u.name), `${esc(u.cn)} · ${esc(u.city)} · ${esc(u.type)}`) + `
+  <section class="sec" style="padding-top:40px"><div class="wrap detail">
+    <div class="main">${cover(u.glyph, u.hue, u.type, u.city)}
+      <div><h2>Об университете</h2><p style="color:var(--soft)">${esc(u.about)}</p></div>
+      <div class="cols2"><div><h2>Требования</h2><ul class="lst">${u.req.map(r => `<li>${esc(r)}</li>`).join('')}</ul></div>
+        <div><h2>Стипендии</h2><ul class="lst">${u.sch.map(s => `<li>${SCHOLARSHIPS[s]}</li>`).join('')}</ul></div></div>
+      <div><h2>Программы</h2>${progs.length ? `<div class="cards two">${progs.map(programCard).join('')}</div>` : `<p class="note">Доступные уровни: ${u.levels.join(', ')}. Список программ пришлём по запросу.</p>`}</div>
+    </div>
+    <aside class="side">
+      <dl class="facts"><div><dt>Город</dt><dd>${esc(u.city)}</dd></div><div><dt>Тип</dt><dd>${esc(u.type)}</dd></div><div><dt>Язык обучения</dt><dd>${esc(u.langs)}</dd></div><div><dt>Уровни</dt><dd>${u.levels.length}</dd></div><div><dt>Проживание</dt><dd>${esc(u.dorm)}</dd></div></dl>
+      <div class="price"><small>от</small> ${money(u.from)} <small>/ год</small></div>
+      <a class="btn btn-red" href="#apply" data-apply data-dir="bachelor" data-target="${esc(u.name + ', ' + u.city)}" data-page="Университет: ${esc(u.name)}">Подать заявку ${ICON.arrow}</a>
+      <a class="btn btn-ghost" href="${waLink('Здравствуйте! Интересует университет: ' + u.name)}" target="_blank" rel="noopener">${ICON.wa} Консультация</a>
+    </aside></div></section>`;
+}
+
+/* --- Tours & camps --- */
+function seatsTxt(d) { if (d.from === 'flex') return '<span class="seats">Под заказ</span>'; return `<span class="seats ${d.left <= 3 ? 'low' : ''}">${d.left ? 'Свободно: ' + d.left + ' из ' + d.seats : 'Мест нет'}</span>`; }
+function pTours() {
+  const f = S.tours;
+  const list = TOURS.filter(t => (!f.kind || t.kind === f.kind) && (!f.format || t.format === f.format));
+  const kinds = ['Бизнес', 'Туристический', 'Шопинг', 'Выставочный'];
+  return phead('<span>Туры</span>', 'Туры в Китай', 'DRAGON tour: бизнес-, туристические, шопинг- и выставочные поездки. Индивидуально и в небольших группах.', DEMO) + `
+  <section class="sec" style="padding-top:36px"><div class="wrap">
+    <div class="tabs" style="margin-bottom:12px;width:max-content;max-width:100%">${[['', 'Все'], ...kinds.map(k => [k, k])].map(([k, t]) => `<button data-set="tours.kind" data-v="${k}" class="${f.kind === k ? 'on' : ''}">${t}</button>`).join('')}</div>
+    <div class="tabs" style="margin-bottom:28px;width:max-content;max-width:100%">${[['', 'Любой формат'], ['Групповой', 'Групповые'], ['Индивидуальный', 'Индивидуальные']].map(([k, t]) => `<button data-set="tours.format" data-v="${k}" class="${f.format === k ? 'on' : ''}">${t}</button>`).join('')}</div>
+    ${list.length ? `<div class="cards">${list.map(t => `<article class="card">${cover(t.glyph, t.hue, t.kind, t.format)}
+      <div class="body"><h3><a href="#tour-${t.id}">${esc(t.title)}</a></h3><div class="sub">${esc(t.cities)} · ${t.days} дней</div>
+      <div class="desc">${esc(t.summary)}</div>
+      <div class="meta">${t.dates.slice(0, 2).map(d => `<span class="chip gold">${d.from === 'flex' ? 'Даты под вас' : fmtD(d.from)}</span>`).join('')}</div>
+      <div class="foot"><span class="price">${money(t.price)}</span><a class="btn btn-ghost btn-sm" href="#tour-${t.id}">Подробнее</a></div></div></article>`).join('')}</div>` : `<div class="empty"><b>Нет туров по фильтру</b>Соберём индивидуальный тур под ваши даты.</div>`}
+  </div></section>${ctaBox('Нужен тур под ваши задачи?', 'Организуем индивидуальную поездку: маршрут, отели, переводчик и полное сопровождение.')}`;
+}
+function bookingSide(item, kindDir, pageLabel) {
+  const dates = item.dates;
+  return `<aside class="side">
+    <div class="price">${money(item.price)}${item.price != null ? ' <small>/ человек</small>' : ''}</div>
+    <div><h4 style="font:800 12px var(--f-body);letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px">Даты</h4>
+      <div class="dates" id="dates">${dates.map((d, i) => `<button class="date-opt ${i === 0 ? 'on' : ''}" data-i="${i}" type="button"><span>${fmtRange(d.from, d.to)}</span>${seatsTxt(d)}</button>`).join('')}</div></div>
+    <a class="btn btn-red" href="#apply" data-book="${kindDir}" data-title="${esc(item.title)}" data-page="${esc(pageLabel)}">Забронировать ${ICON.arrow}</a>
+    <a class="btn btn-ghost" href="${waLink('Здравствуйте! Интересует: ' + item.title)}" target="_blank" rel="noopener">${ICON.wa} Задать вопрос</a>
+    <p class="note">Бронирование подтверждает менеджер после консультации.</p>
+  </aside>`;
+}
+function pTour(id) {
+  const t = TOUR[id]; if (!t) return notFound();
+  return phead(`<a href="#tours">Туры</a><span>/</span><span>${esc(t.title)}</span>`, esc(t.title), esc(t.summary)) + `
+  <section class="sec" style="padding-top:40px"><div class="wrap detail"><div class="main">${cover(t.glyph, t.hue, t.kind, t.format)}
+    <dl class="facts"><div><dt>Тип тура</dt><dd>${t.kind}</dd></div><div><dt>Формат</dt><dd>${t.format}</dd></div><div><dt>Города</dt><dd>${esc(t.cities)}</dd></div><div><dt>Длительность</dt><dd>${t.days} дней</dd></div></dl>
+    <div><h2>Программа по дням</h2><ol class="days">${t.plan.map(d => `<li><span>${esc(d)}</span></li>`).join('')}</ol></div>
+    <div class="cols2"><div><h2>Включено</h2><ul class="lst">${t.inc.map(x => `<li>${esc(x)}</li>`).join('')}</ul></div><div><h2>Не включено</h2><ul class="lst minus">${t.exc.map(x => `<li>${esc(x)}</li>`).join('')}</ul></div></div>
+  </div>${bookingSide(t, 'tour', 'Тур: ' + t.title)}</div></section>`;
+}
+function pCamps() {
+  const f = S.camps;
+  const list = CAMPS.filter(c => !f.kind || c.kind === f.kind);
+  return phead('<span>Лагеря</span>', 'Лагеря в Китае', 'Языковые, летние, детские и индивидуальные лагеря: китайский язык, культура и новые друзья.', DEMO) + `
+  <section class="sec" style="padding-top:36px"><div class="wrap">
+    <div class="tabs" style="margin-bottom:28px;width:max-content;max-width:100%">${[['', 'Все'], ['Языковой', 'Языковые'], ['Летний', 'Летние'], ['Детский', 'Детские'], ['Индивидуальный', 'Индивидуальные']].map(([k, t]) => `<button data-set="camps.kind" data-v="${k}" class="${f.kind === k ? 'on' : ''}">${t}</button>`).join('')}</div>
+    <div class="cards">${list.map(c => `<article class="card">${cover(c.glyph, c.hue, c.kind, c.ages)}
+      <div class="body"><h3><a href="#camp-${c.id}">${esc(c.title)}</a></h3><div class="sub">${esc(c.place)}</div><div class="desc">${esc(c.summary)}</div>
+      <div class="meta">${c.dates.map(d => `<span class="chip gold">${d.from === 'flex' ? 'Даты под вас' : fmtD(d.from) + ' — ' + fmtD(d.to)}</span>`).join('')}</div>
+      <div class="foot"><span class="price">${money(c.price)}</span><a class="btn btn-ghost btn-sm" href="#camp-${c.id}">Подробнее</a></div></div></article>`).join('')}</div>
+  </div></section>${ctaBox('Подберём лагерь для вашего ребёнка', 'Расскажите о возрасте, уровне языка и удобных датах.')}`;
+}
+function pCamp(id) {
+  const c = CAMP[id]; if (!c) return notFound();
+  return phead(`<a href="#camps">Лагеря</a><span>/</span><span>${esc(c.title)}</span>`, esc(c.title), esc(c.summary)) + `
+  <section class="sec" style="padding-top:40px"><div class="wrap detail"><div class="main">${cover(c.glyph, c.hue, c.kind, c.ages)}
+    <dl class="facts"><div><dt>Тип</dt><dd>${c.kind}</dd></div><div><dt>Возраст</dt><dd>${esc(c.ages)}</dd></div><div><dt>Место</dt><dd>${esc(c.place)}</dd></div><div><dt>Проживание</dt><dd>${esc(c.housing)}</dd></div><div><dt>Питание</dt><dd>${esc(c.food)}</dd></div></dl>
+    <div><h2>Программа</h2><ol class="days plain">${c.plan.map(d => `<li><span>${esc(d)}</span></li>`).join('')}</ol></div>
+    <div><h2>Экскурсии</h2><ul class="lst">${c.excursions.map(x => `<li>${esc(x)}</li>`).join('')}</ul></div>
+  </div>${bookingSide(c, 'camp', 'Лагерь: ' + c.title)}</div></section>`;
+}
+
+/* --- Static pages --- */
+function pAbout() {
+  return phead('<span>О компании</span>', 'О Dragon Education', 'Помогаем поступить и учиться в Китае. Обучаем китайскому языку онлайн. Организуем туры и лагеря.') + `
+  <section class="sec"><div class="wrap about-strip">
+    <div class="prose"><h2>Кто мы</h2>
+      <p>Dragon Education — команда, в которой носители языка преподают китайский и занимаются поступлением студентов в университеты Китая. Работаем в Казахстане и Китае.</p>
+      <p>Мы предоставляем гранты в Китай, программы колледжа, бакалавриат, магистратуру и докторантуру. Есть программы на английском и китайском языке в ТОП-вузах Китая, стипендии с бесплатным обучением и проживанием.</p>
+      <p>Команда Dragon Education полностью сопровождает студентов до получения приглашения от вуза, а затем помогает с визой, переездом и адаптацией.</p>
+      <h2>Что мы делаем</h2>
+      <ul class="lst"><li>Поступление в вузы Китая: Foundation, бакалавриат, магистратура, докторантура</li><li>Онлайн-школа китайского языка и подготовка к HSK, HSKK, BCT, YCT</li><li>Подготовка к IELTS и CSCA</li><li>DRAGON tour — бизнес-, туристические, шопинг- и выставочные туры</li><li>Языковые и детские лагеря в Китае</li></ul>
+    </div>
+    <div class="quote-card"><span class="big" aria-hidden="true">桥</span><h3>Твой мост в большой Китай</h3><p>Отдельное спасибо нашему куратору в Казахстане — 美丽老师.</p></div>
+  </div></section>${ctaBox()}`;
+}
+function pBlog() {
+  return phead('<span>Блог</span>', 'Блог и новости', 'Новости наборов, советы по HSK и поступлению, культура Китая.') + `
+  <section class="sec" style="padding-top:40px"><div class="wrap"><div class="post-list">${POSTS.map(p => `<article class="card">${cover(p.title.match(/[一-鿿]/) ? p.title.match(/[一-鿿]/)[0] : { drinks: '茶', 'blcc-day': '华', 'beijing-intake': '京', 'hsk-why': '考', 'why-china': '学', 'dragon-tour': '游' }[p.id], { drinks: 160, 'blcc-day': 352, 'beijing-intake': 10, 'hsk-why': 40, 'why-china': 210, 'dragon-tour': 120 }[p.id], p.tag, fmtD(p.date))}
+    <div class="body"><h3><a href="#post-${p.id}">${esc(p.title)}</a></h3><div class="desc">${esc(p.lead)}</div><div class="foot"><span class="sub">${fmtD(p.date)}</span><a class="more" href="#post-${p.id}">Читать →</a></div></div></article>`).join('')}</div></div></section>`;
+}
+function pPost(id) {
+  const p = POST[id]; if (!p) return notFound();
+  return phead(`<a href="#blog">Блог</a><span>/</span><span>${esc(p.tag)}</span>`, esc(p.title), esc(p.lead), `<p class="note" style="margin-top:12px">${fmtD(p.date)} · ${esc(p.tag)}</p>`) + `
+  <section class="sec" style="padding-top:40px"><div class="wrap"><div class="prose">${p.body.map(t => `<p>${esc(t)}</p>`).join('')}<p><a class="more" href="#blog">← Все статьи</a></p></div></div></section>${ctaBox()}`;
+}
+function pFaq() {
+  return phead('<span>FAQ</span>', 'Вопросы и ответы', 'Не нашли ответ? Напишите нам в WhatsApp.') + `<section class="sec" style="padding-top:30px"><div class="wrap"><div class="faq" style="max-width:860px">${FAQ.map((f, i) => `<details ${i ? '' : 'open'}><summary>${f[0]}</summary><p>${f[1]}</p></details>`).join('')}</div></div></section>${ctaBox()}`;
+}
+function pContacts() {
+  return phead('<span>Контакты</span>', 'Контакты', 'Пишите в WhatsApp, Instagram или оставьте заявку на сайте — ответим и подберём программу.') + `<div style="padding-top:40px"></div>${contactsBlock()}
+  <section class="sec tight"><div class="wrap"><div class="socials" style="justify-content:flex-start"><a href="${CONTACTS.instagram}" target="_blank" rel="noopener">${ICON.ig}Instagram @dragonn_education</a><a href="${CONTACTS.threads}" target="_blank" rel="noopener">${ICON.th}Threads</a></div></div></section>${ctaBox()}`;
+}
+function pPrivacy() {
+  return phead('<span>Политика конфиденциальности</span>', 'Политика конфиденциальности', 'Как мы собираем, используем и защищаем персональные данные.') + `<section class="sec" style="padding-top:40px"><div class="wrap"><div class="prose">
+    <p>Настоящая политика описывает обработку персональных данных пользователей сайта Dragon Education в соответствии с Законом Республики Казахстан «О персональных данных и их защите».</p>
+    <h2>1. Какие данные мы собираем</h2><p>Имя и фамилия, возраст, страна и город, номер телефона, WhatsApp, WeChat, адрес электронной почты, интересующее направление обучения или поездки, комментарии, которые вы оставляете в форме заявки.</p>
+    <h2>2. Зачем мы их используем</h2><p>Чтобы связаться с вами, проконсультировать, подобрать программу, тур или лагерь, подготовить документы для поступления и выполнить договор.</p>
+    <h2>3. Кто имеет доступ</h2><p>Доступ к данным есть только у сотрудников Dragon Education, которые работают с вашей заявкой. Мы передаём данные университетам, консульствам и партнёрам только с вашего согласия и только в объёме, нужном для поступления или поездки.</p>
+    <h2>4. Хранение и защита</h2><p>Данные хранятся в защищённой системе учёта заявок. Вы можете в любой момент запросить изменение или удаление своих данных, написав нам в WhatsApp.</p>
+    <h2>5. Согласие</h2><p>Отправляя заявку, вы соглашаетесь на обработку персональных данных на условиях этой политики.</p>
+    <p class="note">Текст подготовлен как шаблон. Перед публикацией рекомендуем согласовать его с юристом.</p></div></div></section>`;
+}
+function pTerms() {
+  return phead('<span>Пользовательские условия</span>', 'Пользовательские условия', 'Правила использования сайта Dragon Education.') + `<section class="sec" style="padding-top:40px"><div class="wrap"><div class="prose">
+    <h2>1. Общие положения</h2><p>Сайт носит информационный характер. Описания программ, университетов, туров и лагерей не являются публичной офертой.</p>
+    <h2>2. Стоимость и условия</h2><p>Цены, даты и дедлайны указаны ориентировочно и могут меняться университетами и партнёрами. Окончательные условия фиксируются в договоре.</p>
+    <h2>3. Поступление и стипендии</h2><p>Решение о зачислении и стипендии принимает университет или стипендиальная организация. Мы помогаем подготовить и подать документы, но не можем гарантировать решение.</p>
+    <h2>4. Бронирование туров и лагерей</h2><p>Заявка на сайте не является бронированием. Место закрепляется после подтверждения менеджером и оплаты по договору.</p>
+    <h2>5. Контакты</h2><p>По всем вопросам: WhatsApp ${CONTACTS.waKz}, ${CONTACTS.waCn}.</p>
+    <p class="note">Текст подготовлен как шаблон. Перед публикацией рекомендуем согласовать его с юристом.</p></div></div></section>`;
+}
+function notFound() { return phead('<span>404</span>', 'Страница не найдена', 'Возможно, она была перемещена.') + `<section class="sec"><div class="wrap"><a class="btn btn-red" href="#home">На главную</a></div></section>`; }
+
+/* --- Apply form --- */
+const SOURCES = ['Сайт', 'Instagram', 'WhatsApp', 'Звонок', 'Рекомендация', 'Threads', 'Выставка / мероприятие', 'Другое'];
+const HEARD = ['Instagram', 'Рекомендация друзей', 'Поиск в интернете', 'WhatsApp', 'Threads', 'Другое'];
+function pApply() {
+  const a = S.apply || {};
+  if (a.done) return phead('<span>Заявка</span>', 'Заявка отправлена', '') + `<section class="sec" style="padding-top:40px"><div class="wrap"><div class="okbox" style="max-width:720px">
+    <h3>Спасибо, ${esc(a.done.firstName)}!</h3><p style="color:var(--soft)">Заявка зарегистрирована. Ответственный менеджер свяжется с вами в ближайшее время. Чтобы ускорить ответ, можете написать нам в WhatsApp.</p>
+    <div class="ctas" style="margin-top:20px"><a class="btn btn-red" href="${waLink(a.done.waText)}" target="_blank" rel="noopener">${ICON.wa} Написать в WhatsApp</a><a class="btn btn-ghost" href="#home" data-newapp>На главную</a></div></div></div></section>`;
+  if (a.fallback) return phead('<span>Заявка</span>', 'Отправьте заявку в WhatsApp', '') + `<section class="sec" style="padding-top:40px"><div class="wrap"><div class="okbox" style="max-width:720px">
+    <h3>${esc(a.firstName || '')}, заявка готова</h3><p style="color:var(--soft)">Нажмите кнопку — откроется WhatsApp с уже заполненным сообщением. Останется только нажать «Отправить», и менеджер свяжется с вами.</p>
+    <pre style="white-space:pre-wrap;font:14px/1.5 var(--f-body);color:var(--soft);background:var(--ink-3);border:1px solid var(--line);border-radius:12px;padding:14px;margin:16px 0 0">${esc(a.fallback)}</pre>
+    <div class="ctas" style="margin-top:20px"><a class="btn btn-red" href="${waLink(a.fallback)}" target="_blank" rel="noopener">${ICON.wa} Отправить в WhatsApp</a><button class="btn btn-ghost" data-backform>Изменить данные</button></div></div></div></section>`;
+  const v = a.values || {};
+  return phead('<span>Заявка</span>', 'Подать заявку', 'Заполните форму — заявка уйдёт нам в WhatsApp, менеджер проконсультирует и подберёт программу.', a.page ? `<div class="demo-note" style="border-style:solid;background:rgba(196,38,46,.08);border-color:rgba(196,38,46,.4);color:var(--blush)">${esc(a.page)}</div>` : '') + `
+  <section class="sec" style="padding-top:40px"><div class="wrap" style="max-width:900px">
+    <form class="formbox" id="applyForm" novalidate>
+      <fieldset><legend>Контактные данные</legend>
+        <div class="grid3">
+          <label for="a-fn" class="req">Имя<input id="a-fn" name="firstName" autocomplete="given-name" value="${esc(v.firstName)}" required></label>
+          <label for="a-ln">Фамилия<input id="a-ln" name="lastName" autocomplete="family-name" value="${esc(v.lastName)}"></label>
+          <label for="a-age">Возраст<input id="a-age" name="age" type="number" min="5" max="90" inputmode="numeric" value="${esc(v.age)}"></label>
+        </div>
+        <div class="grid2">
+          <label for="a-country">Страна<input id="a-country" name="country" autocomplete="country-name" value="${esc(v.country ?? 'Казахстан')}"></label>
+          <label for="a-city">Город<input id="a-city" name="city" autocomplete="address-level2" value="${esc(v.city)}"></label>
+        </div>
+        <div class="grid2">
+          <label for="a-phone" class="req">Телефон<input id="a-phone" name="phone" type="tel" autocomplete="tel" placeholder="+7 7__ ___ __ __" value="${esc(v.phone)}" required></label>
+          <label for="a-wa">WhatsApp<input id="a-wa" name="whatsapp" type="tel" placeholder="Если отличается от телефона" value="${esc(v.whatsapp)}"></label>
+        </div>
+        <div class="grid2">
+          <label for="a-wechat">WeChat<input id="a-wechat" name="wechat" value="${esc(v.wechat)}"></label>
+          <label for="a-email">Email<input id="a-email" name="email" type="email" autocomplete="email" value="${esc(v.email)}"></label>
+        </div>
+      </fieldset>
+      <fieldset><legend>Что вас интересует</legend>
+        <div class="grid2">
+          <label for="a-dir" class="req">Направление<select id="a-dir" name="direction">${opt(DIRS, v.direction || a.dir || 'other')}</select></label>
+          <label for="a-target">Город / университет / программа<input id="a-target" name="target" value="${esc(v.target ?? a.target ?? '')}" placeholder="Например, BLCU, Пекин"></label>
+        </div>
+        <label for="a-comment">Комментарий<textarea id="a-comment" name="comment" placeholder="Уровень языка, сроки, бюджет, вопросы">${esc(v.comment ?? a.comment ?? '')}</textarea></label>
+        <label for="a-heard">Откуда вы о нас узнали<select id="a-heard" name="heard">${opt([['', 'Выберите'], ...HEARD.map(x => [x, x])], v.heard || '')}</select></label>
+      </fieldset>
+      <label for="a-ok" style="flex-direction:row;align-items:flex-start;gap:10px;font-weight:600;font-size:13.5px;color:var(--soft);letter-spacing:0"><input id="a-ok" name="consent" type="checkbox" style="width:18px;height:18px;margin-top:2px;flex-shrink:0;accent-color:var(--gold)" ${v.consent ? 'checked' : ''}> <span>Я согласен(на) на обработку персональных данных и принимаю <a href="#privacy" style="color:var(--gold-2)">политику конфиденциальности</a></span></label>
+      <div class="ferr" id="ferr" role="alert"></div>
+      <div class="ctas"><button class="btn btn-red" type="submit" id="sendBtn">${ICON.wa} Отправить заявку в WhatsApp</button><a class="btn btn-ghost" href="${waLink('Здравствуйте! Хочу получить консультацию Dragon Education.')}" target="_blank" rel="noopener">${ICON.wa} Получить консультацию</a></div>
+    </form></div></section>`;
+}
+function leadText(L) {
+  return ['Здравствуйте! Заявка с сайта Dragon Education.', 'Имя: ' + [L.firstName, L.lastName].filter(Boolean).join(' '), L.age && 'Возраст: ' + L.age,
+    (L.country || L.city) && 'Откуда: ' + [L.city, L.country].filter(Boolean).join(', '), 'Телефон: ' + L.phone, L.whatsapp && 'WhatsApp: ' + L.whatsapp, L.wechat && 'WeChat: ' + L.wechat,
+    L.email && 'Email: ' + L.email, 'Направление: ' + DIR[L.direction], L.target && 'Интересует: ' + L.target, L.comment && 'Комментарий: ' + L.comment].filter(Boolean).join('\n');
+}
+function submitApply(form) {
+  const fd = Object.fromEntries(new FormData(form).entries());
+  fd.consent = form.consent.checked;
+  S.apply = Object.assign(S.apply || {}, { values: fd });
+  const err = $('#ferr');
+  if (!fd.firstName.trim()) { err.textContent = 'Укажите имя.'; form.firstName.focus(); return; }
+  if (fd.phone.replace(/\D/g, '').length < 10) { err.textContent = 'Укажите телефон полностью, например +7 705 123 45 67.'; form.phone.focus(); return; }
+  if (fd.email && !/^\S+@\S+\.\S+$/.test(fd.email)) { err.textContent = 'Проверьте адрес email.'; form.email.focus(); return; }
+  if (!fd.consent) { err.textContent = 'Подтвердите согласие на обработку персональных данных.'; return; }
+    const L = {
+    id: 'L' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7),
+    firstName: fd.firstName.trim(), lastName: fd.lastName.trim(), age: fd.age ? Number(fd.age) : null, country: fd.country.trim(), city: fd.city.trim(),
+    phone: fd.phone.trim(), whatsapp: fd.whatsapp.trim(), wechat: fd.wechat.trim(), email: fd.email.trim(), direction: fd.direction, target: fd.target.trim(),
+    comment: fd.comment.trim(), source: 'Сайт', heard: fd.heard || '', page: (S.apply && S.apply.page) || 'Форма заявки', createdAt: Date.now()
+  };
+  S.apply = Object.assign(S.apply, { fallback: leadText(L), firstName: L.firstName });
+  try { window.open(waLink(leadText(L)), '_blank', 'noopener'); } catch (x) {}
+  render(); scrollTo(0, 0);
+}
+
+/* ---------- Render & events ---------- */
+const PAGES = { home: pHome, study: pStudy, program: pProgram, universities: pUnis, university: pUni, tours: pTours, tour: pTour, camps: pCamps, camp: pCamp,
+  about: pAbout, blog: pBlog, post: pPost, faq: pFaq, contacts: pContacts, privacy: pPrivacy, terms: pTerms, apply: pApply };
+let lastRoute = '';
+function render() {
+  const r = route();
+  const key = r.page + '-' + r.id;
+  const root = $('#app');
+  const fn = PAGES[r.page] || notFound;
+  root.innerHTML = header(r.page) + '<main>' + fn(r.id) + '</main>' + footer();
+  if (key !== lastRoute) { scrollTo(0, 0); lastRoute = key; }
+  document.title = 'Dragon Education';
+}
+window.addEventListener('hashchange', () => { S.menuOpen = false; render(); });
+
+document.addEventListener('click', e => {
+  const a = e.target.closest('a,button');
+  if (!a) return;
+  if (a.id === 'burger') { S.menuOpen = !S.menuOpen; render(); return; }
+  if (a.dataset.copy) { e.preventDefault(); copyText(a.dataset.copy, a); return; }
+  if (a.dataset.type !== undefined && a.getAttribute('href') === '#study') { S.study = { q: '', country: '', city: '', level: '', type: a.dataset.type, price: '' }; }
+  if (a.hasAttribute('data-apply')) { S.apply = { dir: a.dataset.dir, target: a.dataset.target, page: a.dataset.page }; if (location.hash === '#apply') { e.preventDefault(); render(); } }
+  if (a.dataset.book) {
+    const sel = $('#dates .date-opt.on'); const i = sel ? +sel.dataset.i : 0;
+    const item = a.dataset.book === 'tour' ? TOURS.find(t => t.title === a.dataset.title) : CAMPS.find(c => c.title === a.dataset.title);
+    const d = item.dates[i];
+    S.apply = { dir: a.dataset.book, target: a.dataset.title + (d.from === 'flex' ? '' : ', ' + fmtRange(d.from, d.to)), page: 'Бронирование — ' + a.dataset.page, comment: d.from === 'flex' ? 'Желаемые даты: ' : '' };
+    if (location.hash === '#apply') { e.preventDefault(); render(); }
+  }
+  if (a.hasAttribute('data-newapp')) S.apply = null;
+  if (a.hasAttribute('data-backform')) { delete S.apply.fallback; render(); return; }
+  if (a.classList.contains('date-opt')) { $$('#dates .date-opt').forEach(b => b.classList.toggle('on', b === a)); return; }
+  if (a.dataset.set) { const [k, f] = a.dataset.set.split('.'); S[k][f] = a.dataset.v; render(); return; }
+  if (a.dataset.reset) { Object.keys(S[a.dataset.reset]).forEach(k => S[a.dataset.reset][k] = ''); render(); return; }
+});
+let fT;
+document.addEventListener('input', e => {
+  const el = e.target; if (!el.dataset || !el.dataset.f) return;
+  const [k, f] = el.dataset.f.split('.'); S[k][f] = el.value;
+  clearTimeout(fT);
+  const id = el.id, pos = el.selectionStart;
+  fT = setTimeout(() => { render(); const n = document.getElementById(id); if (n && n.tagName === 'INPUT') { n.focus(); try { n.setSelectionRange(pos, pos); } catch (x) {} } }, el.tagName === 'INPUT' ? 220 : 0);
+});
+document.addEventListener('submit', e => { if (e.target.id === 'applyForm') { e.preventDefault(); submitApply(e.target); } });
+
+/* ---------- Story viewer ---------- */
+const SV = { st: null, i: 0, timer: null, t0: 0, dur: 6000, paused: false };
+function ytId(u) { try { const x = new URL(u); if (x.hostname.includes('youtu.be')) return x.pathname.slice(1); if (x.searchParams.get('v')) return x.searchParams.get('v'); const m = x.pathname.match(/\/(shorts|embed)\/([^/]+)/); return m ? m[2] : ''; } catch (e) { return u; } }
+function svOpen(key) {
+  SV.st = STORIES.find(s => s.key === key); if (!SV.st) return; SV.i = 0;
+  let el = document.getElementById('sv');
+  if (!el) { el = document.createElement('div'); el.id = 'sv'; el.className = 'sv'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-modal', 'true'); document.body.appendChild(el); }
+  document.body.classList.add('sv-lock'); svRender();
+}
+function svClose() { clearInterval(SV.timer); const el = document.getElementById('sv'); if (el) el.remove(); document.body.classList.remove('sv-lock'); SV.st = null; }
+function svGo(d) {
+  const n = SV.i + d;
+  if (n < 0) { SV.i = 0; svRender(); return; }
+  if (n >= SV.st.items.length) { const k = STORIES.indexOf(SV.st); if (k < STORIES.length - 1) { SV.st = STORIES[k + 1]; SV.i = 0; svRender(); } else svClose(); return; }
+  SV.i = n; svRender();
+}
+function svRender() {
+  const st = SV.st, it = st.items[SV.i], el = document.getElementById('sv');
+  let media = '';
+  if (it.type === 'photo') media = `<span class="sv-fallback" aria-hidden="true">${esc(it.glyph || st.cover)}</span><img id="svActivePhoto" class="sv-photo" src="${it.url === 'HERO' ? HERO : esc(it.url)}" alt="${esc(it.alt || 'Фото истории')}" decoding="async" onerror="this.hidden=true">`;
+  else if (it.type === 'youtube') media = `<iframe class="sv-yt" src="https://www.youtube.com/embed/${encodeURIComponent(ytId(it.url))}?autoplay=1&mute=1&playsinline=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen title="Видео"></iframe>`;
+  else media = `<div class="sv-card" style="background:linear-gradient(160deg,hsl(${it.hue} 55% 30%) 0%,hsl(${(it.hue + 25) % 360} 50% 16%) 60%,#08182e 100%)"><span class="sv-g">${esc(it.glyph)}</span></div>`;
+  const text = `${it.title ? `<h3>${esc(it.title)}</h3>` : ''}${it.text ? `<p>${esc(it.text)}</p>` : ''}`;
+  el.innerHTML = `<div class="sv-box">
+    <div class="sv-bars">${st.items.map((_, i) => `<i><b style="width:${i < SV.i ? 100 : 0}%" ${i === SV.i ? 'id="svbar"' : ''}></b></i>`).join('')}</div>
+    <div class="sv-head"><img src="${LOGO}" alt=""><b>${esc(st.label)}</b><small>dragonn_education</small><button class="sv-x" data-svx aria-label="Закрыть">×</button></div>
+    <div class="sv-media">${media}</div>
+    <button class="sv-nav sv-prev" data-svgo="-1" aria-label="Назад"></button><button class="sv-nav sv-next" data-svgo="1" aria-label="Дальше"></button>
+    <div class="sv-cap">${it.illustrative ? '<span class="sv-photo-note">Иллюстративное фото · Unsplash</span>' : ''}${text}${it.cta ? `<a class="btn btn-red btn-sm" href="${esc(it.cta.href)}" ${it.cta.href.startsWith('http') ? 'target="_blank" rel="noopener"' : 'data-svlink'}>${esc(it.cta.label)}</a>` : ''}</div>
+  </div>`;
+  clearInterval(SV.timer);
+  if (it.type === 'youtube') { const b = document.getElementById('svbar'); if (b) b.style.width = '100%'; return; }
+  SV.t0 = Date.now();
+  SV.timer = setInterval(() => {
+    const activePhoto = document.getElementById('svActivePhoto');
+    if (activePhoto && !activePhoto.complete && !activePhoto.hidden) { SV.t0 = Date.now(); return; }
+    if (SV.paused) { SV.t0 += 100; return; }
+    const p = Math.min(1, (Date.now() - SV.t0) / SV.dur); const b = document.getElementById('svbar'); if (b) b.style.width = p * 100 + '%';
+    if (p >= 1) svGo(1);
+  }, 100);
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-story],[data-svx],[data-svgo],[data-svlink]');
+  if (!b) { if (e.target.id === 'sv') svClose(); return; }
+  if (b.dataset.story) svOpen(b.dataset.story);
+  else if (b.hasAttribute('data-svx')) svClose();
+  else if (b.dataset.svgo) svGo(+b.dataset.svgo);
+  else if (b.hasAttribute('data-svlink')) svClose();
+});
+document.addEventListener('keydown', e => { if (!SV.st) return; if (e.key === 'Escape') svClose(); if (e.key === 'ArrowRight') svGo(1); if (e.key === 'ArrowLeft') svGo(-1); });
+let svX = 0;
+document.addEventListener('touchstart', e => { if (SV.st) { svX = e.changedTouches[0].screenX; SV.paused = true; } }, { passive: true });
+document.addEventListener('touchend', e => { if (!SV.st) return; SV.paused = false; const dx = e.changedTouches[0].screenX - svX; if (Math.abs(dx) > 50) svGo(dx < 0 ? 1 : -1); }, { passive: true });
+
+render();
+</script>
+
+</body></html>
