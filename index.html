@@ -463,8 +463,8 @@ header.top{background:rgba(8,24,46,.96);border-bottom:1px solid rgba(205,222,245
 .menu{gap:0}.menu a{font-size:12px;padding:8px}
 .nav .btn{font-size:12px;padding:13px 17px}
 .hero{background:#08182e;isolation:isolate;border-bottom:1px solid rgba(220,230,247,.1)}
-.hero-bg{inset:0 0 0 31%;background-position:58% center;background-size:cover;opacity:1}
-.hero-bg::after{background:linear-gradient(90deg,#08182e 0%,rgba(8,24,46,.88) 12%,rgba(8,24,46,.25) 38%,rgba(8,24,46,0) 70%),linear-gradient(0deg,#08182e 0%,rgba(8,24,46,.2) 17%,transparent 36%)}
+.hero-bg{inset:0 auto 0 50%;width:min(100%,1280px);transform:translateX(-50%);background-position:center;background-size:cover;opacity:1}
+.hero-bg::after{background:linear-gradient(90deg,#08182e 0%,rgba(8,24,46,.97) 22%,rgba(8,24,46,.82) 42%,rgba(8,24,46,.3) 58%,rgba(8,24,46,0) 72%),linear-gradient(0deg,#08182e 0%,rgba(8,24,46,.24) 17%,transparent 36%)}
 .hero-in{min-height:720px;grid-template-columns:1fr 1fr;padding-block:76px 105px}
 .hero-copy{max-width:600px;gap:25px}
 .hero h1{font-size:clamp(48px,5.4vw,78px);line-height:1.01;letter-spacing:-.025em;color:#fff}
@@ -494,7 +494,7 @@ footer .brand-mark{width:65px;height:71px}
 @media(max-width:1240px){.menu{display:none}.burger{display:grid}.nav .btn-head{display:none}}
 @media(max-width:900px){
  .hero{display:flex;flex-direction:column}
- .hero-bg{position:relative;inset:auto;height:auto;aspect-ratio:16/9;width:100%;background-position:center;background-size:cover}
+ .hero-bg{position:relative;inset:auto;height:auto;aspect-ratio:16/9;width:100%;transform:none;background-position:center;background-size:cover}
  .hero-bg::after{background:linear-gradient(0deg,#08182e 0%,rgba(8,24,46,.18) 20%,transparent 45%)}
  .hero-in{display:block;min-height:0;width:100%;padding-block:4px 50px;margin-top:0;z-index:1}
  .hero-copy{max-width:690px;gap:23px}
